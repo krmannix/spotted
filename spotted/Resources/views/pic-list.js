@@ -176,8 +176,8 @@ PicList.prototype.addPicturesToPicList = function(pics) {
 	for (var i = 0; i < pics.length; i++) {
 		var row = this.createPictureRow(pics[i], i);
 		this.current_pics.push(row);
-		this.pic_list_view.appendRow(row);
 	}
+	this.pic_list_view.setData(this.current_pics);
 }
 
 

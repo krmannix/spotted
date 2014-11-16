@@ -4,16 +4,18 @@ function PicData(pic_list, loc, a_i) {
 	this.pic_list = pic_list;
 	this.loc = loc;
 	this.actInd = a_i;
-	this.addPicturesToList(this.getPictures());
+	this.actInd.setVisible(true);
+	this.addPicturesToList();
 }
 
 PicData.prototype.getPictures = function() {
+	// This should be the GET REST Call
 	return constants.localPictures;
 }
 
-PicData.prototype.addPicturesToList = function(pics) {
+PicData.prototype.addPicturesToList = function() {
+	var pics = this.getPictures();
 	var self = this;
-	self.actInd.setVisible(true);
 	setTimeout(function(){
 		self.pic_list.addPicturesToPicList(pics);
 		self.actInd.setVisible(false);
@@ -22,11 +24,12 @@ PicData.prototype.addPicturesToList = function(pics) {
 	// var client = Ti.Network.createHTTPClient({
 	//      onload : function(e) {
 	//          var res = JSON.parse(this.responseText);
-	//          alert('success');
 	//			this.actInd.setVisible(false);
+	//          alert('success');
 	//      },
 	//      onerror : function(e) {
 	//          Ti.API.debug(e.error);
+	//			self.actInd.setVisible(false);
 	//          alert('Error happened while trying to retrieve pictures.');
 	//      },
 	//      timeout : 5000  // in milliseconds

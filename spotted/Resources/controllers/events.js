@@ -58,8 +58,7 @@ Events.prototype.listDragEnd = function(e) {
         this.actInd.show();
         e.source.setContentInsets({top:80}, {animated:true});
         setTimeout(function(){
-        	// Replace this with request to get new pictures
-            //loadTableData(e.source, this.resetPullHeader(e.source));
+        	this.pic_data.addPicturesToList(); // Calls the REST API to GET Pictures
             self.resetPullHeader(e.source);
         }, 2000);
     }
