@@ -28,7 +28,6 @@ cameraControl.prototype.showCamera = function(){
 
 	            xhr.open('POST','http://spottd.herokuapp.com/upload');
 	            xhr.setRequestHeader('Content-Type','application/json');
-	            Ti.API.info("=== HERE3 ===");
 	            var location = self.loc.getLocation(xhr, self.sendPicturePostRequest);
 	    
 			} else {
@@ -58,18 +57,14 @@ cameraControl.prototype.showCamera = function(){
 }
 
 cameraControl.prototype.sendPicturePostRequest = function(xhr, obj) {
-	Ti.API.info("=== HERE1 ===");
 	if (JSON.stringify(location) !== '{}' && typeof location != 'undefined' && location != null) {
-	            	Ti.API.info("=== LOCATION ===");
-	            	Ti.API.info(location);
 	            	var params = {
-		            	path : imgPath,
+		            	path : '~' + imgPath,
 		            	lat: location.lat,
 		            	lng: location.lng
 		            };
 		            xhr.send(JSON.stringify(params));
 	            } else {
-	            	Ti.API.info("=== LOCAAAAAAAAATION ===");
 	            	Ti.API.info(location);
 	            	alert("Could not get location. Please check your settings.");
 	            }

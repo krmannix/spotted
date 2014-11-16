@@ -28,7 +28,6 @@ Loc.prototype.enableLocationServices = function() {
 }
 
 Loc.prototype.getLocation = function(xhr, callback) {
-	Ti.API.info("=== HERE2 ===");
 	 Ti.Geolocation.getCurrentPosition(function(e) { // Gets starting position
 	        if (e.error) {
 	        	this.no_geo.getView().setVisible(true);
