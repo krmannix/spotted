@@ -11,7 +11,20 @@ PicData.prototype.getPictures = function() {
 }
 
 PicData.prototype.addPicturesToList = function(pics) {
-	// Possibly do some preprocessing here
+	var url = "";
+	var client = Ti.Network.createHTTPClient({
+	     onload : function(e) {
+	         var res = JSON.parse(this.responseText);
+	         alert('success');
+	     },
+	     onerror : function(e) {
+	         Ti.API.debug(e.error);
+	         alert('Error happened while trying to retrieve pictures.');
+	     },
+	     timeout : 5000  // in milliseconds
+	 });
+	 client.open("GET", url);
+	 client.send();
 	this.pic_list.addPicturesToPicList(pics);
 }
 

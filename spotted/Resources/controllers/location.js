@@ -27,10 +27,9 @@ Loc.prototype.enableLocationServices = function() {
 	} 
 }
 
-Loc.prototype.getLocation = function() {
-	Ti.API.info("!!!!_!_!_!_!_!_!_!_!_!");
+Loc.prototype.getLocation = function(xhr, callback) {
+	Ti.API.info("=== HERE2 ===");
 	 Ti.Geolocation.getCurrentPosition(function(e) { // Gets starting position
-	 	Ti.API.info("Getting current position");
 	        if (e.error) {
 	        	this.no_geo.getView().setVisible(true);
 				this.pic_list.getPicList().setVisible(false);
@@ -41,11 +40,11 @@ Loc.prototype.getLocation = function() {
 	        	this.no_geo.getView().setVisible(false);
 	        	this.current_lng = e.coords.longitude;
 	        	this.current_lat = e.coords.latitude;
-	        	Ti.API.info("SHIT");
-	        	return {"lat": this.current_lat, "lng": this.current_lng};
+	        	if (callback && typeof callback === 'function') {
+	        		callback(xhr, {"lat": this.current_lat, "lng": this.current_lng});
+	        	}
 	        }
 	    });
-	 Ti.API.info("Npothing is returning");
 }
 
 
