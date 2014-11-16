@@ -9,12 +9,32 @@ cameraControl.prototype.showCamera = function(){
 			// called when media returned from the camera
 			Ti.API.debug('Our type was: '+event.mediaType);
 			if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
-				var imageView = Ti.UI.createImageView({
-					width:win.width,
-					height:win.height,
-					image:event.media
-				});
-				win.add(imageView);
+
+				// Save photo to application data directory
+				img = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, 'photo.jpg');
+				img.write(event.media);
+
+				// get full image path
+	            imgPath = img.resolve();
+	            Ti.API.info(imgPath);
+
+				// Send photo via post to API
+				var xhr = Ti.Network.createHTTPClient();
+				xhr.onload = function(e) {
+	                console.log('onload');
+	                console.log('response: ' + this.responseText);
+	                //handle response, which at minimum will be an HTTP status code
+	            };
+
+	            xhr.open('POST','http://spottd.herokuapp.com/upload');
+	            xhr.setRequestHeader('Content-Type','application/json');
+
+	            var params = {
+	            	path : imgPath
+	            };
+	            xhr.send(JSON.stringify(params));
+
+
 			} else {
 				alert("got the wrong type back ="+event.mediaType);
 			}
@@ -35,6 +55,7 @@ cameraControl.prototype.showCamera = function(){
 		saveToPhotoGallery:false,
 	    // allowEditing and mediaTypes are iOS-only settings
 		allowEditing:false,
+
 		mediaTypes:[Ti.Media.MEDIA_TYPE_PHOTO]
 	});
 

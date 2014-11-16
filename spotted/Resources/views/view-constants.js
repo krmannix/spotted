@@ -1,6 +1,7 @@
 // General constants
-module.exports.primaryColor = '#BF5FFF';
-module.exports.secondaryColor = '#D8BFD8';
+module.exports.primaryColor = '#545993';
+module.exports.secondaryColor = '#c5c6c3';
+module.exports.tertiaryColor = '#7E7F7E';
 module.exports.borderColor = 'white';
 module.exports.deviceHeight = Titanium.Platform.displayCaps.platformHeight;
 module.exports.deviceWidth = Titanium.Platform.displayCaps.platformWidth;
@@ -10,6 +11,7 @@ module.exports.bannerTopBuffer = 15;
 module.exports.bannerHeight = 30;
 module.exports.bannerHeightWithBuffer = module.exports.bannerHeight + module.exports.bannerTopBuffer;
 module.exports.bannerButtonHeight = module.exports.bannerHeight*0.8;
+module.exports.bannerLogoHeight = module.exports.bannerHeight*0.95;
 module.exports.bannerButtonTop = module.exports.bannerTopBuffer + (module.exports.bannerHeight - module.exports.bannerButtonHeight)/2;
 module.exports.bannerButtonSpaceFromSide = 10;
 module.exports.bannerBorderWidth = 4;	
