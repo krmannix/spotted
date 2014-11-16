@@ -27,7 +27,7 @@ var Events = require('controllers/events');
  * * * * * * * * * * * * * * * * * * * * */
 
  var pic_data = new PicData(pic_list);
- var events = new Events(top_banner);
+ var events = new Events(top_banner, pic_list, pic_data);
 
  /* * * * * * * * * * * * * * * * * * * * *
  * 
