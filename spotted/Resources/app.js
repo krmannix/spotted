@@ -12,6 +12,7 @@ var TopBanner = require('views/top-banner');
 var Events = require('controllers/events');
 var Loc = require('controllers/location');
 var NoGeo = require('views/no-geo-view');
+var Camera = require('controllers/camera')
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -30,17 +31,18 @@ var NoGeo = require('views/no-geo-view');
  * * * * * * * * * * * * * * * * * * * * */
 
  var location = new Loc();
- var pic_data = new PicData(pic_list);
- var events = new Events(top_banner, pic_list, pic_data);
+ var camera = new Camera(location);
+ var pic_data = new PicData(pic_list, location);
+ var events = new Events(top_banner, pic_list, pic_data, camera);
+ Ti.API.info(location.getLocation());
 
  /* * * * * * * * * * * * * * * * * * * * *
  * 
  *  Add views to window
  *
  * * * * * * * * * * * * * * * * * * * * */
-Ti.API.info("Checking for gps: " + location.checkForGPS());
- //if (location.checkForGPS()) {
- if (false) {
+
+ if (location.checkForGPS()) {
  	win.add(pic_list.getPicList());
  } else {
  	win.add(no_geo.getView());
