@@ -30,7 +30,7 @@ var Camera = require('controllers/camera')
  *
  * * * * * * * * * * * * * * * * * * * * */
 
- var location = new Loc();
+ var location = new Loc(pic_list, no_geo);
  var camera = new Camera(location);
  var pic_data = new PicData(pic_list, location);
  var events = new Events(top_banner, pic_list, pic_data, camera);
@@ -42,10 +42,7 @@ var Camera = require('controllers/camera')
  *
  * * * * * * * * * * * * * * * * * * * * */
 
- if (location.checkForGPS()) {
- 	win.add(pic_list.getPicList());
- } else {
- 	win.add(no_geo.getView());
- }
+ win.add(pic_list.getPicList());
+ win.add(no_geo.getView());
  win.add(top_banner.getTopBanner());
  win.open();

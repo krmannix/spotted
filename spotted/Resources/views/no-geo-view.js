@@ -9,7 +9,8 @@ NoGeoView.prototype.createView = function() {
 		width: constants.deviceWidth,
 		height: constants.noGeoHeight,
 		top: constants.bannerHeightWithBuffer,
-		backgroundColor: constants.secondaryColor
+		backgroundColor: constants.secondaryColor,
+		visible: false
 	});
 
 	var l = Ti.UI.createLabel({
