@@ -35,7 +35,7 @@ var Camera = require('controllers/camera')
  var location = new Loc(pic_list, no_geo);
  var camera = new Camera(location);
  var pic_data = new PicData(pic_list, location, pic_list_actInd);
- var events = new Events(top_banner, pic_list, pic_data, camera);
+ var events = new Events(top_banner, pic_list, pic_data, camera, location);
 
  /* * * * * * * * * * * * * * * * * * * * *
  * 

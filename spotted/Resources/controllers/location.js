@@ -27,7 +27,7 @@ Loc.prototype.enableLocationServices = function() {
 	} 
 }
 
-Loc.prototype.getLocation = function(xhr, callback) {
+Loc.prototype.getLocation = function(xhr, callback, pic_data) {
 	 Ti.Geolocation.getCurrentPosition(function(e) { // Gets starting position
 	        if (e.error) {
 	        	this.no_geo.getView().setVisible(true);
@@ -39,8 +39,9 @@ Loc.prototype.getLocation = function(xhr, callback) {
 	        	this.no_geo.getView().setVisible(false);
 	        	this.current_lng = e.coords.longitude;
 	        	this.current_lat = e.coords.latitude;
+	        	Ti.API.info("getting location, should come first");
 	        	if (callback && typeof callback === 'function') {
-	        		callback(xhr, {"lat": this.current_lat, "lng": this.current_lng});
+	        		callback(xhr, {"lat": this.current_lat, "lng": this.current_lng}, pic_data);
 	        	}
 	        }
 	    });
