@@ -19,5 +19,8 @@ module.exports.tableTop = module.exports.bannerHeightWithBuffer; //+ module.expo
 module.exports.rowHeight = module.exports.deviceWidth;
 module.exports.imageHeightMultiplier = 0.9;
 module.exports.imageHeight = module.exports.rowHeight*module.exports.imageHeightMultiplier;
-module.exports.imageWidth = module.exports.imageHeight;
+module.exports.imageWidth = module.exports.deviceWidth*0.9;
 module.exports.imageTop = module.exports.rowHeight*(1-module.exports.imageHeightMultiplier);
+
+module.exports.timeStampHeight = 17;
+module.exports.timeStampTextTop = module.exports.imageTop + module.exports.timeStampHeight/5;
