@@ -24,3 +24,9 @@ module.exports.imageTop = module.exports.rowHeight*(1-module.exports.imageHeight
 
 module.exports.timeStampHeight = 17;
 module.exports.timeStampTextTop = module.exports.imageTop + module.exports.timeStampHeight/5;
+
+// Constants for NoGeoView
+module.exports.noGeoHeight = module.exports.deviceHeight - module.exports.bannerHeightWithBuffer;
+module.exports.noGeoText = "You have GPS turned off for this app. Please change this in your phone's Settings to use Spottd.";
+module.exports.noGeoTextWidth = module.exports.deviceWidth*0.8;
+module.exports.noGeoTextTop = 10;
