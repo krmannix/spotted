@@ -16,19 +16,9 @@ cameraControl.prototype.showCamera = function(){
 
 				// get full image path
 	            imgPath = img.resolve();
-	            Ti.API.info(imgPath);
 
-				// Send photo via post to API
-				var xhr = Ti.Network.createHTTPClient();
-				xhr.onload = function(e) {
-	                console.log('onload');
-	                console.log('response: ' + this.responseText);
-	                //handle response, which at minimum will be an HTTP status code
-	            };
-
-	            xhr.open('POST','http://spottd.herokuapp.com/upload');
-	            xhr.setRequestHeader('Content-Type','application/json');
-	            var location = self.loc.getLocation(xhr, self.sendPicturePostRequest);
+				
+	            var location = self.loc.getLocation(imgPath, self.sendPicturePostRequest);
 	    
 			} else {
 				alert("got the wrong type back ="+event.mediaType);
@@ -47,27 +37,51 @@ cameraControl.prototype.showCamera = function(){
 			}
 			a.show();
 		},
+		// We're saving it to the app data directory instead of the photo gallery
 		saveToPhotoGallery:false,
 	    // allowEditing and mediaTypes are iOS-only settings
 		allowEditing:false,
 
 		mediaTypes:[Ti.Media.MEDIA_TYPE_PHOTO]
 	});
-
 }
 
-cameraControl.prototype.sendPicturePostRequest = function(xhr, obj) {
+cameraControl.prototype.sendPicturePostRequest = function(imgPath, obj) {
 	if (JSON.stringify(location) !== '{}' && typeof location != 'undefined' && location != null) {
-	            	var params = {
-		            	path : '~' + imgPath,
-		            	lat: location.lat,
-		            	lng: location.lng
-		            };
-		            xhr.send(JSON.stringify(params));
-	            } else {
-	            	Ti.API.info(location);
-	            	alert("Could not get location. Please check your settings.");
-	            }
+		var params = {
+			file : imgPath,
+			name : "test"
+			//path : imgPath,
+			//lat: location.lat,
+			//lng: location.lng
+		};
+
+		var formData = new FormData();
+		formData.append('name', 'test');
+		formData.append('file', imgPath);
+
+
+        // Send photo via post to API
+		var xhr = Ti.Network.createHTTPClient();
+		xhr.onload = function(e) {
+            console.log('onload');
+            console.log('response: ' + this.responseText);
+            //handle response, which at minimum will be an HTTP status code
+        };
+
+        //xhr.onerror = function(e) {
+        //	console.log(e.error);
+        //}
+
+        xhr.open('POST','http://spottd.herokuapp.com/s3/upload');
+        xhr.setRequestHeader('Content-type','multipart/form-data', 'boundary=#{b}');
+
+        //xhr.send(params);
+        xhr.send(formData);
+    } else {
+    	Ti.API.info(location);
+    	alert("Could not get location. Please check your settings.");
+    }
 }
 
 // Making this public
