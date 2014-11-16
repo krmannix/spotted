@@ -27,7 +27,7 @@ PicList.prototype.addPicturesToPicList = function(pics) {
 		});
 		var pic = Ti.UI.createImageView({
 			image: pics[i],
-			width: constants.deviceWidth + 5,
+			width: constants.deviceWidth*0.9,
 			height: 'auto',
 			top: constants.imageTop
 		});

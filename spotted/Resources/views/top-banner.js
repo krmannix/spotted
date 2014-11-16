@@ -49,7 +49,7 @@ TopBanner.prototype.getOptionsButton = function() {
 	return this.options_button;
 }
 
-TopBanner.prototype.getPhotoBanner = function() {
+TopBanner.prototype.getPhotoButton = function() {
 	return this.photo_button;
 }
 
