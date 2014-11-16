@@ -1,5 +1,5 @@
 var constants = require('./view-constants');
-var customFont = 'Bangers';
+var customFont = 'Stalemate-Regular';
 
 function TopBanner() {
 	this.photo_button = this.createPhotoButton();
@@ -32,7 +32,7 @@ TopBanner.prototype.createTopBanner = function() {
 	var title = Ti.UI.createLabel({
 		top: banner.height/2 - 5,
 		color: 'white',
-		width: 'auto',
+		width: constants.deviceWidth,
 		left: (constants.deviceWidth/2)-25,
 		text: 'Spottd ',
 		font: {fontFamily: customFont, fontSize: 20}
