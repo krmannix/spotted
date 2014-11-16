@@ -30,6 +30,8 @@ cameraControl.prototype.showCamera = function(){
 	            xhr.setRequestHeader('Content-Type','application/json');
 	            var location = self.loc.getLocation();
 	            if (JSON.stringify(location) !== '{}') {
+	            	Ti.API.info("=== LOCATION ===");
+	            	Ti.API.info(location);
 	            	var params = {
 		            	path : imgPath,
 		            	lat: location.lat,
