@@ -4,6 +4,7 @@ function cameraControl(loc) {
 }
 
 cameraControl.prototype.showCamera = function(){
+		var self = this;
 		Titanium.Media.showCamera({
 		success:function(event) {
 			// called when media returned from the camera
@@ -28,11 +29,18 @@ cameraControl.prototype.showCamera = function(){
 
 	            xhr.open('POST','http://spottd.herokuapp.com/upload');
 	            xhr.setRequestHeader('Content-Type','application/json');
-
-	            var params = {
-	            	path : imgPath
-	            };
-	            xhr.send(JSON.stringify(params));
+	            var location = self.loc.getLocation();
+	            if (JSON.stringify(location) !== '{}') {
+	            	var params = {
+		            	path : imgPath,
+		            	lat: location.lat,
+		            	lng: location.lng
+		            };
+		            xhr.send(JSON.stringify(params));
+	            } else {
+	            	alert("Could not get location. Please check your settings.");
+	            }
+	            
 
 
 			} else {
