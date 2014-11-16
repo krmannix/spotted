@@ -14,28 +14,23 @@ PicData.prototype.getPictures = function() {
 }
 
 PicData.prototype.addPicturesToList = function() {
-	var pics = this.getPictures();
 	var self = this;
-	setTimeout(function(){
-		self.pic_list.addPicturesToPicList(pics);
-		self.actInd.setVisible(false);
-	}, 3000);
-	// var url = "";
-	// var client = Ti.Network.createHTTPClient({
-	//      onload : function(e) {
-	//          var res = JSON.parse(this.responseText);
-	//			this.actInd.setVisible(false);
-	//          alert('success');
-	//      },
-	//      onerror : function(e) {
-	//          Ti.API.debug(e.error);
-	//			self.actInd.setVisible(false);
-	//          alert('Error happened while trying to retrieve pictures.');
-	//      },
-	//      timeout : 5000  // in milliseconds
-	//  });
-	//  client.open("GET", url);
-	//  client.send();
+	var url = "http://spottd.herokuapp.com/images/all";
+	var client = Ti.Network.createHTTPClient({
+	     onload : function(e) {
+	         var res = JSON.parse(this.responseText);
+			 self.actInd.setVisible(false);
+	         self.pic_list.addPicturesToPicList(res);
+	     },
+	     onerror : function(e) {
+	         Ti.API.debug(e.error);
+			 self.actInd.setVisible(false);
+	         alert('Error happened while trying to retrieve pictures.');
+	     },
+	     timeout : 5000  // in milliseconds
+	 });
+	 client.open("GET", url);
+	 client.send();
 }
 
 module.exports = PicData;
