@@ -7,6 +7,7 @@ function PicList() {
 	this.actInd = this.createActInd();
 	this.imageArrow = this.createImageArrow();
 	this.table_header = this.createTableHeader();
+	this.list_actInd = this.createListActivityInd();
 	this.pic_list_view = this.createPicList();
 	this.current_pics = [];
 }
@@ -24,6 +25,12 @@ PicList.prototype.createPicList = function() {
 		selectionStyle: Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE,
 		backgroundColor: constants.secondaryColor,
 		headerPullView: this.table_header
+	});
+}
+
+PicList.prototype.createListActivityInd = function() {
+	return Ti.UI.createActivityIndicator({
+	    width:100, height:100, top: constants.tableTop + 10, visible: false
 	});
 }
 
@@ -152,6 +159,10 @@ PicList.prototype.getLabelStatus = function() {
 
 PicList.prototype.getLabelLastUpdated = function() {
 	return this.labelLastUpdated;
+}
+
+PicList.prototype.getListActivityInd = function() {
+	return this.list_actInd;
 }
 
 /* * * * * * * * * * * * * * * * * * * * *

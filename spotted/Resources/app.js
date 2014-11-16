@@ -24,6 +24,8 @@ var Camera = require('controllers/camera')
  var top_banner = new TopBanner();
  var no_geo = new NoGeo();
 
+ var pic_list_actInd = pic_list.getListActivityInd();
+
  /* * * * * * * * * * * * * * * * * * * * *
  * 
  *  Initialize Controllers
@@ -32,9 +34,8 @@ var Camera = require('controllers/camera')
 
  var location = new Loc(pic_list, no_geo);
  var camera = new Camera(location);
- var pic_data = new PicData(pic_list, location);
+ var pic_data = new PicData(pic_list, location, pic_list_actInd);
  var events = new Events(top_banner, pic_list, pic_data, camera);
- Ti.API.info(location.getLocation());
 
  /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -43,6 +44,7 @@ var Camera = require('controllers/camera')
  * * * * * * * * * * * * * * * * * * * * */
 
  win.add(pic_list.getPicList());
+ win.add(pic_list_actInd);
  win.add(no_geo.getView());
  win.add(top_banner.getTopBanner());
  win.open();
