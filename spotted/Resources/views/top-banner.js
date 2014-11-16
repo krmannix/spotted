@@ -33,9 +33,9 @@ TopBanner.prototype.createTopBanner = function() {
 		top: banner.height/2 - 5,
 		color: 'white',
 		width: constants.deviceWidth,
-		left: (constants.deviceWidth/2)-25,
-		text: 'Spottd ',
-		font: {fontFamily: customFont, fontSize: 20}
+		text: 'Spottd',
+		textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+		font: {fontFamily: customFont, fontSize: 30}
 	});
 	var logo = Ti.UI.createImageView({
 		image: 'images/temp_logo.png',

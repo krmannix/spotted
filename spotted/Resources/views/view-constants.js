@@ -8,7 +8,7 @@ module.exports.deviceWidth = Titanium.Platform.displayCaps.platformWidth;
 
 // Top banner
 module.exports.bannerTopBuffer = 15;
-module.exports.bannerHeight = 30;
+module.exports.bannerHeight = 40;
 module.exports.bannerHeightWithBuffer = module.exports.bannerHeight + module.exports.bannerTopBuffer;
 module.exports.bannerButtonHeight = module.exports.bannerHeight*0.8;
 module.exports.bannerLogoHeight = module.exports.bannerHeight*0.95;
