@@ -1,8 +1,8 @@
 var constants = require('./view-constants');
+var customFont = 'Bangers';
 
 function TopBanner() {
 	this.photo_button = this.createPhotoButton();
-	this.options_button = this.createOptionsButton();
 	this.top_banner = this.createTopBanner();
 }
 
@@ -13,16 +13,6 @@ TopBanner.prototype.createPhotoButton = function() {
 		height: constants.bannerButtonHeight,
 		width: constants.bannerButtonHeight,
 		right: constants.bannerButtonSpaceFromSide
-	});
-}
-
-TopBanner.prototype.createOptionsButton = function() {
-	return Ti.UI.createImageView({
-		image: 'images/gear.png',
-		top: constants.bannerButtonTop,
-		height: constants.bannerButtonHeight,
-		width: constants.bannerButtonHeight,
-		left: constants.bannerButtonSpaceFromSide
 	});
 }
 
@@ -39,8 +29,24 @@ TopBanner.prototype.createTopBanner = function() {
 		backgroundColor: constants.borderColor,
 		top: banner.height
 	});
+	var title = Ti.UI.createLabel({
+		top: banner.height/2 - 5,
+		color: 'white',
+		width: 'auto',
+		left: (constants.deviceWidth/2)-25,
+		text: 'Spottd ',
+		font: {fontFamily: customFont, fontSize: 20}
+	});
+	var logo = Ti.UI.createImageView({
+		image: 'images/temp_logo.png',
+		top: constants.bannerButtonTop,
+		height: constants.bannerButtonHeight,
+		width: constants.bannerButtonHeight,
+		left: constants.bannerButtonSpaceFromSide
+	});
 	banner.add(this.photo_button);
-	banner.add(this.options_button);
+	banner.add(title);
+	banner.add(logo);
 	//banner.add(border);
 	return banner;
 }

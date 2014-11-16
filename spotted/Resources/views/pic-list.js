@@ -92,25 +92,27 @@ PicList.prototype.createPictureRow = function(pic, i) {
 	var row = Ti.UI.createTableViewRow({
 			className:'user_pics',
 			selectedBackgroundColor: 'white',
-			rowIndex: this.current_pics.length + i
+			rowIndex: this.current_pics.length + i,
+			backgroundColor: (i%2 == 0) ? constants.secondaryColor : constants.tertiaryColor
 	});
 
 	var pic = Ti.UI.createImageView({
 		image: pic,
 		width: constants.imageWidth,
 		height: 'auto',
-		top: constants.imageTop
+		top: constants.imageTop/2,
+		bottom: constants.imageTop/2
 	});
 
 	var timestamp_row = Ti.UI.createView({
 		width: constants.imageWidth,
 		height: constants.timeStampHeight,
-		top: constants.imageTop,
-		backgroundColor: 'rgba(0,0,0,0.4)'
+		top: constants.imageTop/2,
+		backgroundColor: (i%2 == 0) ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)'
 	});
 
 	var timestamp = Ti.UI.createLabel({
-		top: constants.timeStampTextTop,
+		top: constants.timeStampTextTop/2,
 		color: 'white',
 		width: 'auto',
 		text: '12:14',
