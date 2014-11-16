@@ -30,12 +30,12 @@ TopBanner.prototype.createTopBanner = function() {
 		top: banner.height
 	});
 	var title = Ti.UI.createLabel({
-		top: banner.height/2 - 5,
+		top: banner.height/2 - 10,
 		color: 'white',
 		width: constants.deviceWidth,
 		text: 'Spottd',
 		textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
-		font: {fontFamily: customFont, fontSize: 30}
+		font: {fontFamily: customFont, fontSize: 26}
 	});
 	var logo = Ti.UI.createImageView({
 		image: 'images/temp_logo.png',
