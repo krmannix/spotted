@@ -29,7 +29,9 @@ cameraControl.prototype.showCamera = function(){
 	            xhr.open('POST','http://spottd.herokuapp.com/upload');
 	            xhr.setRequestHeader('Content-Type','application/json');
 	            var location = self.loc.getLocation();
-	            if (JSON.stringify(location) !== '{}') {
+	            if (JSON.stringify(location) !== '{}' && typeof location != 'undefined' && location != null) {
+	            	Ti.API.info("=== LOCATION ===");
+	            	Ti.API.info(location);
 	            	var params = {
 		            	path : imgPath,
 		            	lat: location.lat,
@@ -37,6 +39,8 @@ cameraControl.prototype.showCamera = function(){
 		            };
 		            xhr.send(JSON.stringify(params));
 	            } else {
+	            	Ti.API.info("=== LOCAAAAAAAAATION ===");
+	            	Ti.API.info(location);
 	            	alert("Could not get location. Please check your settings.");
 	            }
 	            
