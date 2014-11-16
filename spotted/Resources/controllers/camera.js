@@ -57,7 +57,7 @@ cameraControl.prototype.showCamera = function(){
 
 }
 
-cameraControl.prototype.sendPicturePostRequest = function(x, obj) {
+cameraControl.prototype.sendPicturePostRequest = function(xhr, obj) {
 	Ti.API.info("=== HERE1 ===");
 	if (JSON.stringify(location) !== '{}' && typeof location != 'undefined' && location != null) {
 	            	Ti.API.info("=== LOCATION ===");
