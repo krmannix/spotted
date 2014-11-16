@@ -38,7 +38,7 @@ Loc.prototype.getLocation = function() {
 	        	this.pic_list.getPicList().setVisible(true);
 	        	this.no_geo.getView().setVisible(false);
 	        	this.current_lng = e.coords.longitude;
-	        	this.current_lng = e.coords.latitude;
+	        	this.current_lat = e.coords.latitude;
 	        	return {"lat": this.current_lat, "lng": this.current_lng};
 	        }
 	    });

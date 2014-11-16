@@ -1,4 +1,3 @@
-
 function cameraControl(loc) {
 	this.loc = loc;
 }
