@@ -1,5 +1,5 @@
 var constants = require('./view-constants');
-var customFont = 'Stalemate';
+var customFont = 'Dosis';
 
 function TopBanner() {
 	this.photo_button = this.createPhotoButton();
