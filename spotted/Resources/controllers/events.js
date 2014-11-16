@@ -1,8 +1,9 @@
-function Events(top_banner, pic_list, pic_data, camera) {
+function Events(top_banner, pic_list, pic_data, camera, location) {
 	this.top_banner = top_banner;
 	this.pic_list = pic_list;
 	this.pic_data = pic_data;
 
+	this.location = location;
 	this.photo_button = this.top_banner.getPhotoButton();
 	this.options_button = this.top_banner.getOptionsButton();
 	this.cameraControl = camera;
@@ -58,7 +59,7 @@ Events.prototype.listDragEnd = function(e) {
         this.actInd.show();
         e.source.setContentInsets({top:80}, {animated:true});
         setTimeout(function(){
-        	this.pic_data.addPicturesToList(); // Calls the REST API to GET Pictures
+        	this.location.getLocation('', self.pic_data.addPicturesToList, self.pic_data); // Calls the REST API to GET Pictures
             self.resetPullHeader(e.source);
         }, 2000);
     }
