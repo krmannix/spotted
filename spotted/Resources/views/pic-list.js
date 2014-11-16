@@ -96,6 +96,7 @@ PicList.prototype.createActInd = function() {
 }
 
 PicList.prototype.createPictureRow = function(pic, i) {
+
 	var row = Ti.UI.createTableViewRow({
 			className:'user_pics',
 			selectedBackgroundColor: 'white',
@@ -103,8 +104,8 @@ PicList.prototype.createPictureRow = function(pic, i) {
 			backgroundColor: (i%2 == 0) ? constants.secondaryColor : constants.tertiaryColor
 	});
 
-	var pic = Ti.UI.createImageView({
-		image: pic,
+	var picture = Ti.UI.createImageView({
+		image: pic.s3Url,
 		width: constants.imageWidth,
 		height: 'auto',
 		top: constants.imageTop/2,
@@ -117,17 +118,23 @@ PicList.prototype.createPictureRow = function(pic, i) {
 		top: constants.imageTop/2,
 		backgroundColor: (i%2 == 0) ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)'
 	});
+	
+	var date = new Date(pic.createdAt);
+	var hours = (date.getHours() == 0) ? 1 : date.getHours();
+	var mins = (date.getMinutes() > 9) ? date.getMinutes() : '0' + date.getMinutes();
+	var am_or_pm = (hours > 12) ? ' pm' : ' am';
+	Ti.API.info(mins);
 
 	var timestamp = Ti.UI.createLabel({
 		top: constants.timeStampTextTop/2,
 		color: 'white',
 		width: 'auto',
-		text: '12:14',
+		text: hours%13 + ':' + mins + am_or_pm,
 		font: {fontFamily: 'Helvetica', fontSize: 11}
 	});
 
 	// Must be in this order
-	row.add(pic);
+	row.add(picture);
 	row.add(timestamp_row);
 	row.add(timestamp);
 
@@ -173,10 +180,12 @@ PicList.prototype.getListActivityInd = function() {
 
 PicList.prototype.addPicturesToPicList = function(pics) {
 	// For now, we'll just generate these pics
+	this.current_pics = [];
 	for (var i = 0; i < pics.length; i++) {
 		var row = this.createPictureRow(pics[i], i);
 		this.current_pics.push(row);
 	}
+	this.pic_list_view.setData([]);
 	this.pic_list_view.setData(this.current_pics);
 }
 
