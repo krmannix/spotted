@@ -49,16 +49,16 @@ cameraControl.prototype.showCamera = function(){
 cameraControl.prototype.sendPicturePostRequest = function(imgPath, obj) {
 	if (JSON.stringify(location) !== '{}' && typeof location != 'undefined' && location != null) {
 		var params = {
-			file : imgPath,
-			name : "test"
+			"file" : img.read(),
+			"name" : "test"
 			//path : imgPath,
 			//lat: location.lat,
 			//lng: location.lng
 		};
 
-		var formData = new FormData();
-		formData.append('name', 'test');
-		formData.append('file', imgPath);
+		//var formData = new FormData();
+		//formData.append('name', 'test');
+		//formData.append('file', imgPath);
 
 
         // Send photo via post to API
@@ -73,11 +73,11 @@ cameraControl.prototype.sendPicturePostRequest = function(imgPath, obj) {
         //	console.log(e.error);
         //}
 
+        xhr.setRequestHeader("enctype", "multipart/form-data");
+        xhr.setRequestHeader("Content-Type", "image/jpg");
         xhr.open('POST','http://spottd.herokuapp.com/s3/upload');
-        xhr.setRequestHeader('Content-type','multipart/form-data', 'boundary=#{b}');
 
-        //xhr.send(params);
-        xhr.send(formData);
+        xhr.send(params);
     } else {
     	Ti.API.info(location);
     	alert("Could not get location. Please check your settings.");
