@@ -28,16 +28,13 @@ Loc.prototype.enableLocationServices = function() {
 }
 
 Loc.prototype.getLocation = function() {
-	Ti.API.info("Getting location");
 	 Ti.Geolocation.getCurrentPosition(function(e) { // Gets starting position
 	        if (e.error) {
-	        	Ti.API.info("In error");
 	        	this.no_geo.getView().setVisible(true);
 				this.pic_list.getPicList().setVisible(false);
 	            alert('Couldn\'t get location. Please check your connection.');
 	            return {};
 	        } else {
-	        	Ti.API.info("Sending back coords");
 	        	this.pic_list.getPicList().setVisible(true);
 	        	this.no_geo.getView().setVisible(false);
 	        	this.current_lng = e.coords.longitude;
@@ -45,7 +42,6 @@ Loc.prototype.getLocation = function() {
 	        	return {"lat": this.current_lat, "lng": this.current_lng};
 	        }
 	    });
-	Ti.API.info("Outta here");
 }
 
 
