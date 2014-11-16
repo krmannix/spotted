@@ -15,33 +15,23 @@ Loc.prototype.checkForGPS = function() {
 Loc.prototype.enableLocationServices = function() {
 	if (this.checkForGPS()) {
 	    Ti.Geolocation.purpose = 'Get Current Location';
-	    Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
+	    Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_HUNDRED_METERS;
 	    Ti.Geolocation.distanceFilter = 10;
 	    Ti.Geolocation.preferredProvider = Ti.Geolocation.PROVIDER_GPS;
-
-	    Ti.Geolocation.getCurrentPosition(function(e) { // Gets starting position
-	        if (e.error) {
-	            alert('Couldn\'t get location. Please check your connection.');
-	        } else {
-	        	this.current_lng = e.coords.longitude;
-	        	this.current_lng = e.coords.latitude;
-	        }
-	    });
-
-	    // Updates when location changes
-	    Ti.Geolocation.addEventListener('location', function(e) {
-	        if (e.error) {
-	            alert('Couldn\'t get location.');
-	        } else {
-	            this.current_lng = e.coords.longitude;
-	        	this.current_lng = e.coords.latitude;
-	        }
-	    });
 	} 
 }
 
 Loc.prototype.getLocation = function() {
-	return {"lat": this.current_lat, "lng": this.current_lng};
+	 Ti.Geolocation.getCurrentPosition(function(e) { // Gets starting position
+	        if (e.error) {
+	            alert('Couldn\'t get location. Please check your connection.');
+	            return {};
+	        } else {
+	        	this.current_lng = e.coords.longitude;
+	        	this.current_lng = e.coords.latitude;
+	        	return {"lat": this.current_lat, "lng": this.current_lng};
+	        }
+	    });
 }
 
 

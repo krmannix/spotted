@@ -5,7 +5,7 @@
     <version>1.0</version>
     <publisher>kevinmannix</publisher>
     <url>http://</url>
-    <description/>
+    <description>undefined</description>
     <copyright>2014 by kevinmannix</copyright>
     <icon>appicon.png</icon>
     <fullscreen>false</fullscreen>
@@ -35,10 +35,6 @@
                 <false/>
                 <key>UIStatusBarStyle</key>
                 <string>UIStatusBarStyleDefault</string>
-                <key>NSLocationWhenInUseUsageDescription</key>
-                <string>
-                    We need your location correctly get local Spots.
-                </string>
                 <key>NSLocationAlwaysUsageDescription</key>
                 <string>
                     We need your location correctly get local Spots.

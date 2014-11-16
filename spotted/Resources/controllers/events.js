@@ -1,13 +1,11 @@
-var camera = require('./camera')
-
-function Events(top_banner, pic_list, pic_data) {
+function Events(top_banner, pic_list, pic_data, camera) {
 	this.top_banner = top_banner;
 	this.pic_list = pic_list;
 	this.pic_data = pic_data;
 
 	this.photo_button = this.top_banner.getPhotoButton();
 	this.options_button = this.top_banner.getOptionsButton();
-	this.cameraControl = new camera();
+	this.cameraControl = camera;
 	this.pic_list_view = this.pic_list.getPicList();
 
 	// For the reload puller

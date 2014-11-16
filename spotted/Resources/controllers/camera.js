@@ -1,6 +1,6 @@
 
-function cameraControl() {
-
+function cameraControl(loc) {
+	this.loc = loc;
 }
 
 cameraControl.prototype.showCamera = function(){

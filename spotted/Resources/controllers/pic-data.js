@@ -1,7 +1,8 @@
 var constants = require('./controller-constants');
 
-function PicData(pic_list) {
+function PicData(pic_list, loc) {
 	this.pic_list = pic_list;
+	this.loc = loc;
 	this.addPicturesToList(this.getPictures());
 }
 
