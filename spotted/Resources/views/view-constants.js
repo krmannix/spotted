@@ -29,6 +29,6 @@ module.exports.timeStampTextTop = module.exports.imageTop + module.exports.timeS
 
 // Constants for NoGeoView
 module.exports.noGeoHeight = module.exports.deviceHeight - module.exports.bannerHeightWithBuffer;
-module.exports.noGeoText = "You have GPS turned off for this app. Please change this in your phone's Settings to use Spottd.";
+module.exports.noGeoText = "You have GPS turned off for this app. Please change this in your phone's Settings to use Spottd.\n\nThanks!";
 module.exports.noGeoTextWidth = module.exports.deviceWidth*0.8;
 module.exports.noGeoTextTop = 10;

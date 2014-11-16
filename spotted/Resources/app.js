@@ -11,6 +11,7 @@ var PicData = require('controllers/pic-data');
 var TopBanner = require('views/top-banner');
 var Events = require('controllers/events');
 var Loc = require('controllers/location');
+var NoGeo = require('views/no-geo-view');
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -20,6 +21,7 @@ var Loc = require('controllers/location');
 
  var pic_list = new PicList();
  var top_banner = new TopBanner();
+ var no_geo = new NoGeo();
 
  /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -36,11 +38,12 @@ var Loc = require('controllers/location');
  *  Add views to window
  *
  * * * * * * * * * * * * * * * * * * * * */
-
- if (location.checkForGPS()) {
+Ti.API.info("Checking for gps: " + location.checkForGPS());
+ //if (location.checkForGPS()) {
+ if (false) {
  	win.add(pic_list.getPicList());
  } else {
-
+ 	win.add(no_geo.getView());
  }
  win.add(top_banner.getTopBanner());
  win.open();
