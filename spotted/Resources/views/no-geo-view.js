@@ -16,7 +16,17 @@ NoGeoView.prototype.createView = function() {
 		text: constants.noGeoText,
 		top: constants.noGeoTextTop,
 		width: constants.noGeoTextWidth,
-		font: {fontFamily: 'Helvetica', fontSize: 25},
-		color: constants.primaryColor
+		font: {fontFamily: 'Helvetica', fontSize: 20},
+		color: constants.primaryColor,
+		textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
 	});
+
+	v.add(l);
+	return v;
 }
+
+NoGeoView.prototype.getView = function() {
+	return this.view;
+}
+
+module.exports = NoGeoView;

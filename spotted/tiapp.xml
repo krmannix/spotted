@@ -39,6 +39,10 @@
                 <string>
                     We need your location correctly get local Spots.
                 </string>
+                <key>NSLocationAlwaysUsageDescription</key>
+                <string>
+                    We need your location correctly get local Spots.
+                </string>
             </dict>
         </plist>
     </ios>
