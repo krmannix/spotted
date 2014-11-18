@@ -39,7 +39,6 @@ Loc.prototype.getLocation = function(xhr, callback, pic_data) {
 	        	this.no_geo.getView().setVisible(false);
 	        	this.current_lng = e.coords.longitude;
 	        	this.current_lat = e.coords.latitude;
-	        	Ti.API.info("getting location, should come first");
 	        	if (callback && typeof callback === 'function') {
 	        		callback(xhr, {"lat": this.current_lat, "lng": this.current_lng}, pic_data);
 	        	}

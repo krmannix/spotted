@@ -123,7 +123,7 @@ PicList.prototype.createPictureRow = function(pic, i) {
 	var date = new Date(pic.createdAt);
 	var hours = (date.getHours() == 0) ? 1 : date.getHours();
 	var mins = (date.getMinutes() > 9) ? date.getMinutes() : '0' + date.getMinutes();
-	var am_or_pm = (hours > 12) ? ' pm' : ' am';
+	var am_or_pm = (hours > 12) ? ' am' : ' pm';
 
 	var timestamp = Ti.UI.createLabel({
 		top: constants.timeStampTextTop/2,

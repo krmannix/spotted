@@ -11,14 +11,10 @@ cameraControl.prototype.showCamera = function(){
 			if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
 
 				// Save photo to application data directory
-				img = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, 'photo.jpg');
+				var img = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, 'photo.jpg');
 				img.write(event.media);
-
-				// get full image path
-	            imgPath = img.resolve();
-
 				
-	            var location = self.loc.getLocation(imgPath, self.sendPicturePostRequest);
+	            self.loc.getLocation(img, self.sendPicturePostRequest);
 	    
 			} else {
 				alert("got the wrong type back ="+event.mediaType);
@@ -41,25 +37,19 @@ cameraControl.prototype.showCamera = function(){
 		saveToPhotoGallery:false,
 	    // allowEditing and mediaTypes are iOS-only settings
 		allowEditing:false,
-
+		// Only allow photos
 		mediaTypes:[Ti.Media.MEDIA_TYPE_PHOTO]
 	});
 }
 
-cameraControl.prototype.sendPicturePostRequest = function(imgPath, obj) {
-	if (JSON.stringify(location) !== '{}' && typeof location != 'undefined' && location != null) {
+cameraControl.prototype.sendPicturePostRequest = function(img, obj) {
+	if (JSON.stringify(obj) !== '{}' && typeof obj != 'undefined' && obj != null) {
 		var params = {
 			"file" : img.read(),
-			"name" : "test"
-			//path : imgPath,
-			//lat: location.lat,
-			//lng: location.lng
+			"name" : "test",
+			"lat" : obj.lat,
+			"lng" : obj.lng
 		};
-
-		//var formData = new FormData();
-		//formData.append('name', 'test');
-		//formData.append('file', imgPath);
-
 
         // Send photo via post to API
 		var xhr = Ti.Network.createHTTPClient();
@@ -69,15 +59,12 @@ cameraControl.prototype.sendPicturePostRequest = function(imgPath, obj) {
             //handle response, which at minimum will be an HTTP status code
         };
 
-        //xhr.onerror = function(e) {
-        //	console.log(e.error);
-        //}
-
         xhr.setRequestHeader("enctype", "multipart/form-data");
         xhr.setRequestHeader("Content-Type", "image/jpg");
         xhr.open('POST','http://spottd.herokuapp.com/s3/upload');
 
         xhr.send(params);
+
     } else {
     	Ti.API.info(location);
     	alert("Could not get location. Please check your settings.");
