@@ -98,14 +98,15 @@ PicList.prototype.createActInd = function() {
 PicList.prototype.createPictureRow = function(pic, i) {
 
 	var row = Ti.UI.createTableViewRow({
-			className:'user_pics',
-			selectedBackgroundColor: 'white',
-			rowIndex: this.current_pics.length + i,
-			backgroundColor: (i%2 == 0) ? constants.secondaryColor : constants.tertiaryColor
+		className:'user_pics',
+		selectedBackgroundColor: 'white',
+		rowIndex: this.current_pics.length + i,
+		backgroundColor: (i%2 == 0) ? constants.secondaryColor : constants.tertiaryColor
 	});
 
 	var picture = Ti.UI.createImageView({
 		image: pic.s3Url,
+		defaultImage: constants.imageDefault,
 		width: constants.imageWidth,
 		height: 'auto',
 		top: constants.imageTop/2,
