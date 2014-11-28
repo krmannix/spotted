@@ -4,6 +4,9 @@ var constants = require('./controller-constants');
 function PaintController() {
 	this.colorButtons = this.createColorButtons(['#FF0000', '#FFA500', '#FFFF00',
 												 '#00FF00', '#0000FF', '#800080']);
+	this.submitButton = this.createSubmitButton();
+	this.textStartButton = this.createTextStartButton();
+	this.textInputBox = this.createTextInputBox();
 	this.canvas = this.createCanvas();
 	this.paintView = this.createPaintView();
 }
@@ -29,6 +32,9 @@ PaintController.prototype.createPaintView = function() {
 		top:0, right:0, bottom:0, left:0
 	});
 	pv.add(this.canvas);
+	pv.add(this.submitButton);
+	pv.add(this.textStartButton);
+	pv.add(this.textInputBox);
 	for (var i = 0; i < this.colorButtons.length; i++) {
 		pv.add(this.colorButtons[i]);
 	}
@@ -40,7 +46,7 @@ PaintController.prototype.createColorButton = function(color, x_distance) {
 	return Ti.UI.createView({
 		backgroundColor: color,
 		left: x_distance,
-		bottom: 10,
+		bottom: constants.paintBottomBuffer,
 		width: constants.paintColorButtonSize,
 		height: constants.paintColorButtonSize,
 		borderRadius: constants.paintColorButtonSize/2
@@ -65,6 +71,52 @@ PaintController.prototype.createColorButtons = function(colors) {
 	return bs;
 }
 
+PaintController.prototype.createSubmitButton = function() {
+	var v = Ti.UI.createView({
+		backgroundColor: constants.submitButtonBackgroundColor,
+		height: constants.submitButtonHeight,
+		borderRadius: constants.paintColorButtonSize/4,
+		width: constants.submitButtonWidth,
+		bottom: constants.paintBottomBuffer,
+		right: constants.submitButtonInitialRight,
+		borderWidth: constants.submitButtonBorderWidth,
+		borderColor: constants.submitButtonBorderColor
+	});
+
+	var s = Ti.UI.createLabel({
+		text: constants.submitButtonText,
+		color: constants.submitButtonTextColor,
+		font:{fontSize: 14, fontFamily: 'Helvetica Neue'}
+	});
+
+	v.add(s);
+	return v;
+}
+
+PaintController.prototype.createTextStartButton = function() {
+	return Ti.UI.createImageView({
+		image: 'images/tempT.png',
+		height: constants.submitButtonHeight,
+		bottom: constants.paintBottomBuffer,
+		right: constants.submitButtonInitialRight + constants.submitButtonWidth + 10
+	});
+}
+
+PaintController.prototype.createTextInputBox = function() {
+	return Ti.UI.createTextField({
+	backgroundColor: '#FFF',
+		color: '#000',
+		opacity: constants.textInputOpacity,
+		font: {fontSize:16, fontFamily: constants.labelFontFamily},
+		bottom: constants.textInputBottomClosed, 
+		left: 0,
+		height: constants.textInputHeight,
+		width: Titanium.Platform.displayCaps.platformWidth,
+		paddingLeft: constants.paintColorButtonInitialLeft,
+		paddingRight: constants.submitButtonInitialRight
+	});
+}
+
 /* * * * * * * * * * * * * * * * * * * * *
  * 
  *  GETS
@@ -81,6 +133,18 @@ PaintController.prototype.getPaintView = function() {
 
 PaintController.prototype.getColorButtons = function() {
 	return this.colorButtons;
+}
+
+PaintController.prototype.getSubmitButton = function() {
+	return this.submitButton;
+}
+
+PaintController.prototype.getTextStartButton = function() {
+	return this.textStartButton;
+}
+
+PaintController.prototype.getTextInputBox = function() {
+	return this.textInputBox;
 }
 
 

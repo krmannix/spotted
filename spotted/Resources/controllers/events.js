@@ -9,6 +9,8 @@ function Events(top_banner, pic_list, pic_data, camera, location, paint) {
 	this.options_button = this.top_banner.getOptionsButton();
 	this.cameraControl = camera;
 	this.pic_list_view = this.pic_list.getPicList();
+	this.photo_submit_button = this.paint.getSubmitButton();
+	this.text_start_button = this.paint.getTextStartButton();
 
 	// For the reload puller
 	this.pulling = false;
@@ -88,6 +90,14 @@ Events.prototype.allColorHandlers = function() {
 	}
 }
 
+Events.prototype.sendPhoto = function() {
+	console.log("SEND PHOTO");
+}
+
+Events.prototype.textStart = function() {
+	console.log("OPEN TEXT BOX");
+}
+
 /* * * * * * * * * * * * * * * * * * * * *
  * 
  *  All event listeners should go in here
@@ -109,6 +119,14 @@ Events.prototype.addEventListeners = function() {
 	this.pic_list_view.addEventListener('scroll', function(e) {
 		self.listScroll(e);
 	});
+
+	this.photo_submit_button.addEventListener('click', function() {
+		self.sendPhoto();
+	});
+
+	this.text_start_button.addEventListener('click', function() {
+		self.textStart();
+	})
 
 	this.allColorHandlers();
 
