@@ -1,5 +1,7 @@
 =run
-LAST_LAUNCH_TIMESTAMP=1416105768794
+LAST_LAUNCH_TIMESTAMP=1417140074447
 eclipse.preferences.version=1
 preference.show.console.onError=true
 preference.studio.perspective.version=103
+spotted\:launchMode=run
+spotted\:launchShortcut=com.appcelerator.titanium.mobile.ui.ios.simulator.ipad.launchShortcut.8CF4D9A0-20F8-4FAB-80E7-A851C0DF17CC

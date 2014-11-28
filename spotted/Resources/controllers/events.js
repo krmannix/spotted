@@ -1,7 +1,8 @@
-function Events(top_banner, pic_list, pic_data, camera, location) {
+function Events(top_banner, pic_list, pic_data, camera, location, paint) {
 	this.top_banner = top_banner;
 	this.pic_list = pic_list;
 	this.pic_data = pic_data;
+	this.paint = paint;
 
 	this.location = location;
 	this.photo_button = this.top_banner.getPhotoButton();
@@ -77,6 +78,16 @@ Events.prototype.resetPullHeader = function(table) {
     table.setContentInsets({top:0}, {animated:true});
 }
 
+Events.prototype.allColorHandlers = function() {
+	var cbs = this.paint.getColorButtons();
+	var self = this;
+	for (var i = 0; i < cbs.length; i++) {
+		cbs[i].addEventListener('click', function(e) {
+			self.paint.changeStrokeColor(e.source.backgroundColor);
+		});
+	}
+}
+
 /* * * * * * * * * * * * * * * * * * * * *
  * 
  *  All event listeners should go in here
@@ -98,6 +109,8 @@ Events.prototype.addEventListeners = function() {
 	this.pic_list_view.addEventListener('scroll', function(e) {
 		self.listScroll(e);
 	});
+
+	this.allColorHandlers();
 
 }
 
