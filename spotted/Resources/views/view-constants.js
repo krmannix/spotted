@@ -34,3 +34,24 @@ module.exports.noGeoHeight = module.exports.deviceHeight - module.exports.banner
 module.exports.noGeoText = "You have GPS turned off for this app. Please change this in your phone's Settings to use Spottd.\n\nThanks!";
 module.exports.noGeoTextWidth = module.exports.deviceWidth*0.8;
 module.exports.noGeoTextTop = 10;
+
+// Paint View Variables
+module.exports.paintBottomBuffer = 10;
+
+module.exports.paintColorButtonSize = 20;
+module.exports.paintColorButtonBuffer = 5;
+module.exports.paintColorButtonInitialLeft = 10;
+
+module.exports.submitButtonWidth = 70;
+module.exports.submitButtonHeight = module.exports.paintColorButtonSize + 10;
+module.exports.submitButtonInitialRight = module.exports.paintColorButtonInitialLeft;
+module.exports.submitButtonBorderColor = '#333';
+module.exports.submitButtonBorderWidth = 2;
+module.exports.submitButtonBackgroundColor = '#666';
+module.exports.submitButtonTextColor = '#DDD';
+module.exports.submitButtonText = 'Post';
+
+module.exports.textInputHeight = 40;
+module.exports.textInputOpacity = 0.5;
+module.exports.textInputBottomOpen = 15;
+module.exports.textInputBottomClosed = -1*(module.exports.textInputBottomOpen+module.exports.textInputHeight);

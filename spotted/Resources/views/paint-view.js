@@ -1,12 +1,13 @@
 var Paint = require('ti.paint');
-var constants = require('./controller-constants');
+var constants = require('./view-constants');
 
-function PaintController() {
+function PaintView() {
 	this.colorButtons = this.createColorButtons(['#FF0000', '#FFA500', '#FFFF00',
 												 '#00FF00', '#0000FF', '#800080']);
 	this.submitButton = this.createSubmitButton();
 	this.textStartButton = this.createTextStartButton();
 	this.textInputBox = this.createTextInputBox();
+	this.loadingView = this.createLoadingView();
 	this.canvas = this.createCanvas();
 	this.paintView = this.createPaintView();
 }
@@ -17,7 +18,7 @@ function PaintController() {
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-PaintController.prototype.changeStrokeColor = function(color) {
+PaintView.prototype.changeStrokeColor = function(color) {
 	this.canvas.strokeColor = color;
 }
 
@@ -27,7 +28,7 @@ PaintController.prototype.changeStrokeColor = function(color) {
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-PaintController.prototype.createPaintView = function() {
+PaintView.prototype.createPaintView = function() {
 	var pv = Ti.UI.createView({
 		top:0, right:0, bottom:0, left:0
 	});
@@ -38,11 +39,12 @@ PaintController.prototype.createPaintView = function() {
 	for (var i = 0; i < this.colorButtons.length; i++) {
 		pv.add(this.colorButtons[i]);
 	}
+	pv.add(this.loadingView);
 	// Add text button
 	return pv;
 }
 
-PaintController.prototype.createColorButton = function(color, x_distance) {
+PaintView.prototype.createColorButton = function(color, x_distance) {
 	return Ti.UI.createView({
 		backgroundColor: color,
 		left: x_distance,
@@ -53,7 +55,7 @@ PaintController.prototype.createColorButton = function(color, x_distance) {
 	});
 }
 
-PaintController.prototype.createCanvas = function() {
+PaintView.prototype.createCanvas = function() {
 	return Paint.createPaintView({
 	    top:0, right:0, bottom:0, left:0,
 	    // strokeWidth (float), strokeColor (string), strokeAlpha (int, 0-255)
@@ -62,7 +64,7 @@ PaintController.prototype.createCanvas = function() {
 	});
 }
 
-PaintController.prototype.createColorButtons = function(colors) {
+PaintView.prototype.createColorButtons = function(colors) {
 	var bs = [];
 	for (var i = 0; i < colors.length; i++) {
 		bs.push(this.createColorButton(colors[i], constants.paintColorButtonInitialLeft + 
@@ -71,7 +73,7 @@ PaintController.prototype.createColorButtons = function(colors) {
 	return bs;
 }
 
-PaintController.prototype.createSubmitButton = function() {
+PaintView.prototype.createSubmitButton = function() {
 	var v = Ti.UI.createView({
 		backgroundColor: constants.submitButtonBackgroundColor,
 		height: constants.submitButtonHeight,
@@ -93,7 +95,7 @@ PaintController.prototype.createSubmitButton = function() {
 	return v;
 }
 
-PaintController.prototype.createTextStartButton = function() {
+PaintView.prototype.createTextStartButton = function() {
 	return Ti.UI.createImageView({
 		image: 'images/tempT.png',
 		height: constants.submitButtonHeight,
@@ -102,13 +104,13 @@ PaintController.prototype.createTextStartButton = function() {
 	});
 }
 
-PaintController.prototype.createTextInputBox = function() {
+PaintView.prototype.createTextInputBox = function() {
 	return Ti.UI.createTextField({
 	backgroundColor: '#FFF',
 		color: '#000',
 		opacity: constants.textInputOpacity,
 		font: {fontSize:16, fontFamily: constants.labelFontFamily},
-		bottom: constants.textInputBottomClosed, 
+		top: constants.textInputBottomClosed, 
 		left: 0,
 		height: constants.textInputHeight,
 		width: Titanium.Platform.displayCaps.platformWidth,
@@ -117,35 +119,66 @@ PaintController.prototype.createTextInputBox = function() {
 	});
 }
 
+PaintView.prototype.createLoadingView = function() {
+	var style;
+	if (Ti.Platform.name === 'iPhone OS'){
+	  style = Ti.UI.iPhone.ActivityIndicatorStyle.DARK;
+	} else {
+	  style = Ti.UI.ActivityIndicatorStyle.DARK;
+	}
+	var loading = Ti.UI.createActivityIndicator({
+  	    color: 'white',
+	    font: {fontFamily:'Helvetica Neue', fontSize:29, fontWeight:'bold'},
+	    top:'auto',
+	    left:'auto',
+	    height:300,
+		width:300
+	});
+	loading.show();
+	var loadingView = Ti.UI.createView({
+		top: 0, left: 0, right: 0, bottom: 0,
+		backgroundColor: '#333',
+		opacity: '0.7',
+		visible: false
+	});
+
+	loadingView.add(loading);
+	return loadingView;
+}
+
 /* * * * * * * * * * * * * * * * * * * * *
  * 
  *  GETS
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-PaintController.prototype.getCanvas = function() {
+PaintView.prototype.getCanvas = function() {
 	return this.canvas;
 }
 
-PaintController.prototype.getPaintView = function() {
+PaintView.prototype.getPaintView = function() {
 	return this.paintView;
 }
 
-PaintController.prototype.getColorButtons = function() {
+PaintView.prototype.getColorButtons = function() {
 	return this.colorButtons;
 }
 
-PaintController.prototype.getSubmitButton = function() {
+PaintView.prototype.getSubmitButton = function() {
 	return this.submitButton;
 }
 
-PaintController.prototype.getTextStartButton = function() {
+PaintView.prototype.getTextStartButton = function() {
 	return this.textStartButton;
 }
 
-PaintController.prototype.getTextInputBox = function() {
+PaintView.prototype.getTextInputBox = function() {
 	return this.textInputBox;
 }
 
+PaintView.prototype.getLoadingView = function() {
+	return this.loadingView;
+}
 
-module.exports = PaintController;
+
+module.exports = PaintView;

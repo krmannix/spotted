@@ -13,7 +13,7 @@ var Events = require('controllers/events');
 var Loc = require('controllers/location');
 var NoGeo = require('views/no-geo-view');
 var Camera = require('controllers/camera');
-var Paint = require('controllers/paint_controller');
+var Paint = require('views/paint-view');
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 

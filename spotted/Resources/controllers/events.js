@@ -1,9 +1,13 @@
+var animations = require('../views/animations');
+
 function Events(top_banner, pic_list, pic_data, camera, location, paint) {
+	// Get views
 	this.top_banner = top_banner;
 	this.pic_list = pic_list;
 	this.pic_data = pic_data;
 	this.paint = paint;
 
+	// Get components in views
 	this.location = location;
 	this.photo_button = this.top_banner.getPhotoButton();
 	this.options_button = this.top_banner.getOptionsButton();
@@ -11,6 +15,9 @@ function Events(top_banner, pic_list, pic_data, camera, location, paint) {
 	this.pic_list_view = this.pic_list.getPicList();
 	this.photo_submit_button = this.paint.getSubmitButton();
 	this.text_start_button = this.paint.getTextStartButton();
+	this.text_input_box = this.paint.getTextInputBox();
+	this.paint_loading = this.paint.getLoadingView();
+	this.paint_view = this.paint.getPaintView();
 
 	// For the reload puller
 	this.pulling = false;
@@ -20,6 +27,9 @@ function Events(top_banner, pic_list, pic_data, camera, location, paint) {
 	this.actInd = this.pic_list.getActInd();
 	this.labelStatus = this.pic_list.getLabelStatus();
 	this.labelLastUpdated = this.pic_list.getLabelLastUpdated();
+
+	// Boolean values
+	this.textInputBoxOpen = false;
 
 	this.addEventListeners();
 
@@ -91,11 +101,19 @@ Events.prototype.allColorHandlers = function() {
 }
 
 Events.prototype.sendPhoto = function() {
-	console.log("SEND PHOTO");
+	this.paint_loading.show();
+	// Now send the photo
 }
 
 Events.prototype.textStart = function() {
-	console.log("OPEN TEXT BOX");
+	if (this.textInputBoxOpen) {
+		this.textInputBoxOpen = false;
+		this.text_input_box.animate(animations.closeInputTextBox());
+		this.text_input_box.value = "";
+	} else {
+		this.textInputBoxOpen = true;
+		this.text_input_box.animate(animations.openInputTextBox());
+	}
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -126,7 +144,11 @@ Events.prototype.addEventListeners = function() {
 
 	this.text_start_button.addEventListener('click', function() {
 		self.textStart();
-	})
+	});
+
+	this.paint_view.addEventListener('click', function() {
+		self.text_input_box.blur();
+	});
 
 	this.allColorHandlers();
 
