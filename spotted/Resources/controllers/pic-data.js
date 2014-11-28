@@ -17,6 +17,7 @@ PicData.prototype.addPicturesToList = function(x, obj, pic_data) {
 	var self, url;
 	if (pic_data) self = pic_data;
 	else self = this;
+	console.log("FIRST TIME");
 	// Front page gets nearby images based on latitude and longitude
 	if (JSON.stringify(obj) !== '{}') url = "http://spottd.herokuapp.com/images/nearby?lat="+obj.lat+"&lng="+obj.lng;
 	else url = "http://spottd.herokuapp.com/images/all";

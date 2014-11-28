@@ -12,7 +12,8 @@ var TopBanner = require('views/top-banner');
 var Events = require('controllers/events');
 var Loc = require('controllers/location');
 var NoGeo = require('views/no-geo-view');
-var Camera = require('controllers/camera')
+var Camera = require('controllers/camera');
+var Paint = require('controllers/paint_controller');
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -23,6 +24,7 @@ var Camera = require('controllers/camera')
  var pic_list = new PicList();
  var top_banner = new TopBanner();
  var no_geo = new NoGeo();
+ var paint = new Paint();
 
  var pic_list_actInd = pic_list.getListActivityInd();
 
@@ -43,8 +45,9 @@ var Camera = require('controllers/camera')
  *
  * * * * * * * * * * * * * * * * * * * * */
 
- win.add(pic_list.getPicList());
- win.add(pic_list_actInd);
- win.add(no_geo.getView());
- win.add(top_banner.getTopBanner());
+ // win.add(pic_list.getPicList());
+ // win.add(pic_list_actInd);
+ // win.add(no_geo.getView());
+ // win.add(top_banner.getTopBanner());
+ win.add(paint.getPaintView());
  win.open();
