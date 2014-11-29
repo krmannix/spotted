@@ -12,6 +12,7 @@ var TopBanner = require('views/top-banner');
 var Events = require('controllers/events');
 var Loc = require('controllers/location');
 var NoGeo = require('views/no-geo-view');
+var ErrorPic = require('views/error-getting-pics-view')
 var Camera = require('controllers/camera');
 var Paint = require('views/paint-view');
 
@@ -24,6 +25,7 @@ var Paint = require('views/paint-view');
  var pic_list = new PicList();
  var top_banner = new TopBanner();
  var no_geo = new NoGeo();
+ var err_pic = new ErrorPic();
  var paint = new Paint();
 
  var pic_list_actInd = pic_list.getListActivityInd();
@@ -36,7 +38,7 @@ var Paint = require('views/paint-view');
 
  var location = new Loc(pic_list, no_geo);
  var camera = new Camera(location);
- var pic_data = new PicData(pic_list, location, pic_list_actInd);
+ var pic_data = new PicData(pic_list, location, pic_list_actInd, err_pic);
  var events = new Events(top_banner, pic_list, pic_data, camera, location, paint);
 
  /* * * * * * * * * * * * * * * * * * * * *

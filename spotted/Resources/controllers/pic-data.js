@@ -1,11 +1,12 @@
 var constants = require('./controller-constants');
 
-function PicData(pic_list, loc, a_i) {
+function PicData(pic_list, loc, a_i, err_pic) {
 	this.pic_list = pic_list;
 	this.loc = loc;
 	this.actInd = a_i;
 	this.actInd.setVisible(true);
 	this.loc.getLocation('', this.addPicturesToList, this);
+	this.err_pic = err_pic;
 }
 
 PicData.prototype.getPictures = function() {
@@ -17,7 +18,6 @@ PicData.prototype.addPicturesToList = function(x, obj, pic_data) {
 	var self, url;
 	if (pic_data) self = pic_data;
 	else self = this;
-	console.log("FIRST TIME");
 	// Front page gets nearby images based on latitude and longitude
 	if (JSON.stringify(obj) !== '{}') url = "http://spottd.herokuapp.com/images/nearby?lat="+obj.lat+"&lng="+obj.lng;
 	else url = "http://spottd.herokuapp.com/images/all";
@@ -26,12 +26,14 @@ PicData.prototype.addPicturesToList = function(x, obj, pic_data) {
 	     onload : function(e) {
 	         var res = JSON.parse(this.responseText);
 			 self.actInd.setVisible(false);
+			 self.err_pic.getView().hide();
 	         self.pic_list.addPicturesToPicList(res);
 	     },
 	     onerror : function(e) {
 	         Ti.API.debug(e.error);
 			 self.actInd.setVisible(false);
-	         alert('Error happened while trying to retrieve pictures.');
+			 self.err_pic.getView().show();
+	         alert('Error happened while trying to retrieve pictures on the first time.');
 	     },
 	     timeout : 5000  // in milliseconds
 	 });

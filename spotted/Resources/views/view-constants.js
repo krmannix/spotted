@@ -29,11 +29,12 @@ module.exports.imageDefault = "images/defaultImage.png";
 module.exports.timeStampHeight = 17;
 module.exports.timeStampTextTop = module.exports.imageTop + module.exports.timeStampHeight/5;
 
-// Constants for NoGeoView
+// Constants for NoGeoView/ErrorPictureView
 module.exports.noGeoHeight = module.exports.deviceHeight - module.exports.bannerHeightWithBuffer;
 module.exports.noGeoText = "You have GPS turned off for this app. Please change this in your phone's Settings to use Spottd.\n\nThanks!";
 module.exports.noGeoTextWidth = module.exports.deviceWidth*0.8;
 module.exports.noGeoTextTop = 10;
+module.exports.errorPictureText = "There was an error fetching the pictures. \n\nTry again in a bit!";
 
 // Paint View Variables
 module.exports.paintBottomBuffer = 10;
