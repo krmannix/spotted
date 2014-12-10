@@ -1,8 +1,10 @@
 eclipse.preferences.version=1
 iosLaunchConfigurationAttributes/ATTR_MINIFY=true
 iosLaunchConfigurationAttributes/ATTR_PROJECT_NAME=spotted
-iosLaunchConfigurationAttributes/appid=me.spottd.
-iosLaunchConfigurationAttributes/certificate=Alex Wong (VK67D3T84U)
+iosLaunchConfigurationAttributes/appid=me.spottd.app
+iosLaunchConfigurationAttributes/certificate=Alex Wong (CCCBT8QBT3)
+iosLaunchConfigurationAttributes/distribute_path=/Users/alexwong/Desktop
 iosLaunchConfigurationAttributes/keychain=
+iosLaunchConfigurationAttributes/output_format=ipa
 iosLaunchConfigurationAttributes/sdk_version=8.1
-iosLaunchConfigurationAttributes/uuid=56a98ebd-b661-4bf7-87b0-faaca070891e
+iosLaunchConfigurationAttributes/uuid=c828ec01-353c-4e6f-b21e-30fc7684c9aa
