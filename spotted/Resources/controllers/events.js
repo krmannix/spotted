@@ -6,6 +6,7 @@ function Events(top_banner, pic_list, pic_data, camera, location, paint) {
 	this.pic_list = pic_list;
 	this.pic_data = pic_data;
 	this.paint = paint;
+	this.camera = camera;
 
 	// Get components in views
 	this.location = location;
@@ -18,6 +19,7 @@ function Events(top_banner, pic_list, pic_data, camera, location, paint) {
 	this.text_input_box = this.paint.getTextInputBox();
 	this.paint_loading = this.paint.getLoadingView();
 	this.paint_view = this.paint.getPaintView();
+	this.picture_button = this.camera.getPictureButton();
 
 	// For the reload puller
 	this.pulling = false;
@@ -100,9 +102,43 @@ Events.prototype.allColorHandlers = function() {
 	}
 }
 
+Events.prototype.photoSendHttpRequest = function(img, obj) {
+	if (JSON.stringify(obj) !== '{}' && typeof obj != 'undefined' && obj != null) {
+
+		var params = {
+			"file" : img,
+			"name" : "test",
+			"lat" : obj.lat,
+			"lng" : obj.lng
+		};
+
+        // Send photo via post to API
+		var xhr = Ti.Network.createHTTPClient();
+		xhr.onload = function(e) {
+            console.log('onload');
+            console.log('response: ' + this.responseText);
+            //handle response, which at minimum will be an HTTP status code
+        };
+
+        xhr.setRequestHeader("enctype", "multipart/form-data");
+        xhr.setRequestHeader("Content-Type", "image/jpg");
+        xhr.open('POST','http://spottd.herokuapp.com/s3/upload');
+
+        xhr.send(params);
+
+    } else {
+    	Ti.API.info(location);
+    	alert("Could not get location. Please check your settings.");
+    }
+}
+
 Events.prototype.sendPhoto = function() {
 	this.paint_loading.show();
-	// Now send the photo
+	var img = this.paint.getCanvas().toImage();
+	this.location.getLocation(img, this.photoSendHttpRequest);
+	// Now, cancel out of all the views
+	this.paint_view.setVisible(false);
+	this.paint_loading.hide();
 }
 
 Events.prototype.textStart = function() {
@@ -114,6 +150,18 @@ Events.prototype.textStart = function() {
 		this.textInputBoxOpen = true;
 		this.text_input_box.animate(animations.openInputTextBox());
 	}
+}
+
+Events.prototype.openUpPaintView = function() {
+	
+}
+
+Events.prototype.openUpListView = function() {
+	
+}
+
+Events.prototype.takePictureCustom = function() {
+	Ti.Media.takePicture();
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -148,6 +196,10 @@ Events.prototype.addEventListeners = function() {
 
 	this.paint_view.addEventListener('click', function() {
 		self.text_input_box.blur();
+	});
+
+	this.picture_button.addEventListener('click', function() {
+		self.takePictureCustom();
 	});
 
 	this.allColorHandlers();

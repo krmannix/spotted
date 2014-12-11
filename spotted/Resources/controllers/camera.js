@@ -1,21 +1,46 @@
-function cameraControl(loc) {
+var constants = require('./controller-constants');
+
+function cameraControl(loc, paintview) {
 	this.loc = loc;
+	this.paintview = paintview;
+	this.takePictureButtonBackground = Ti.UI.createView({
+		height: constants.pictureButtonHeight + 10,
+		width: constants.pictureButtonWidth + 10,
+		bottom: constants.pictureButtonBottom,
+		borderRadius: (constants.pictureButtonHeight + 10)/2,
+		borderWidth: 4,
+		borderColor: '#555',
+		backgroundColor: '#FFF'
+	});
+	this.takePictureButton = Ti.UI.createImageView({
+		height: constants.pictureButtonHeight,
+		width: constants.pictureButtonWidth,
+		bottom: 5,
+		image: 'images/temp_logo.png'
+	});
 }
 
 cameraControl.prototype.showCamera = function(){
 		var self = this;
+		var overlay = Ti.UI.createView({ 
+			bottom: 0,
+			width: constants.deviceWidth,
+			height: constants.pictureButtonHeight + constants.pictureButtonBottom*2
+		});
+		this.takePictureButtonBackground.add(this.takePictureButton);
+		overlay.add(this.takePictureButtonBackground);
+		var cameraTransform = Ti.UI.create2DMatrix();
+		cameraTransform = cameraTransform.scale(1);
 		Titanium.Media.showCamera({
+		overlay: overlay,
+		showControls: false,
+		transform: cameraTransform,
 		success:function(event) {
 			// called when media returned from the camera
 			Ti.API.debug('Our type was: '+event.mediaType);
 			if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
-
-				// Save photo to application data directory
-				var img = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, 'photo.jpg');
-				img.write(event.media);
-				
-	            self.loc.getLocation(img, self.sendPicturePostRequest);
-	    
+				self.paintview.setPaintImage(event.media);
+				self.paintview.showPaintView();
 			} else {
 				alert("got the wrong type back ="+event.mediaType);
 			}
@@ -42,34 +67,9 @@ cameraControl.prototype.showCamera = function(){
 	});
 }
 
-cameraControl.prototype.sendPicturePostRequest = function(img, obj) {
-	if (JSON.stringify(obj) !== '{}' && typeof obj != 'undefined' && obj != null) {
-		var params = {
-			"file" : img.read(),
-			"name" : "test",
-			"lat" : obj.lat,
-			"lng" : obj.lng
-		};
-
-        // Send photo via post to API
-		var xhr = Ti.Network.createHTTPClient();
-		xhr.onload = function(e) {
-            console.log('onload');
-            console.log('response: ' + this.responseText);
-            //handle response, which at minimum will be an HTTP status code
-        };
-
-        xhr.setRequestHeader("enctype", "multipart/form-data");
-        xhr.setRequestHeader("Content-Type", "image/jpg");
-        xhr.open('POST','http://spottd.herokuapp.com/s3/upload');
-
-        xhr.send(params);
-
-    } else {
-    	Ti.API.info(location);
-    	alert("Could not get location. Please check your settings.");
-    }
+cameraControl.prototype.getPictureButton = function() {
+	return this.takePictureButtonBackground;
 }
 
 // Making this public
-module.exports=cameraControl;
+module.exports = cameraControl;

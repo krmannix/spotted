@@ -37,7 +37,7 @@ var Paint = require('views/paint-view');
  * * * * * * * * * * * * * * * * * * * * */
 
  var location = new Loc(pic_list, no_geo);
- var camera = new Camera(location);
+ var camera = new Camera(location, paint);
  var pic_data = new PicData(pic_list, location, pic_list_actInd, err_pic);
  var events = new Events(top_banner, pic_list, pic_data, camera, location, paint);
 
@@ -47,9 +47,9 @@ var Paint = require('views/paint-view');
  *
  * * * * * * * * * * * * * * * * * * * * */
 
- // win.add(pic_list.getPicList());
- // win.add(pic_list_actInd);
- // win.add(no_geo.getView());
- // win.add(top_banner.getTopBanner());
+ win.add(pic_list.getPicList());
+ win.add(pic_list_actInd);
+ win.add(no_geo.getView());
+ win.add(top_banner.getTopBanner());
  win.add(paint.getPaintView());
  win.open();

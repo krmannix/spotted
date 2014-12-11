@@ -30,12 +30,12 @@ PaintView.prototype.changeStrokeColor = function(color) {
 
 PaintView.prototype.createPaintView = function() {
 	var pv = Ti.UI.createView({
-		top:0, right:0, bottom:0, left:0
+		top:0, right:0, bottom:0, left:0, backgroundColor: 'black', visible: false
 	});
 	pv.add(this.canvas);
 	pv.add(this.submitButton);
-	pv.add(this.textStartButton);
-	pv.add(this.textInputBox);
+	// pv.add(this.textStartButton);
+	// pv.add(this.textInputBox);
 	for (var i = 0; i < this.colorButtons.length; i++) {
 		pv.add(this.colorButtons[i]);
 	}
@@ -144,6 +144,21 @@ PaintView.prototype.createLoadingView = function() {
 
 	loadingView.add(loading);
 	return loadingView;
+}
+
+PaintView.prototype.setPaintImage = function(pic) {
+	var i = Ti.UI.createImageView({
+		image: pic,
+		height: 'auto',
+		width: 'auto'
+	});
+	//Ti.API.info(i.toImage().height + " " + i.size.height + " " + (i.size.height / (Titanium.Platform.displayCaps.dpi / 160)));
+	this.canvas.height = constants.deviceHeight*0.75;
+	this.canvas.setImage(pic);
+}
+
+PaintView.prototype.showPaintView = function() {
+	this.paintView.setVisible(true);
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
