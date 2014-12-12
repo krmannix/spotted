@@ -159,6 +159,7 @@ PaintView.prototype.setPaintImage = function(pic) {
 
 PaintView.prototype.showPaintView = function() {
 	this.paintView.setVisible(true);
+	Ti.Media.hideCamera();
 }
 
 /* * * * * * * * * * * * * * * * * * * * *

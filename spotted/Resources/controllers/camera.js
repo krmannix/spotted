@@ -13,14 +13,10 @@ cameraControl.prototype.showCamera = function(){
 			showControls: false,
 			transform: Ti.UI.create2DMatrix().scale(1),
 			success:function(event) {
-				// called when media returned from the camera
-				Ti.API.debug('Our type was: '+event.mediaType);
 				if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
 					self.paint_view.setPaintImage(event.media);
 					self.paint_view.showPaintView();
-				} else {
-					alert("got the wrong type back ="+event.mediaType);
-				}
+				} 
 			},
 			cancel:function() {
 				// called when user cancels taking a picture
@@ -37,7 +33,8 @@ cameraControl.prototype.showCamera = function(){
 			},
 			saveToPhotoGallery:false,
 			allowEditing:false,
-			mediaTypes:[Ti.Media.MEDIA_TYPE_PHOTO]
+			mediaTypes:[Ti.Media.MEDIA_TYPE_PHOTO],
+			autohide: false
 		});
 }
 

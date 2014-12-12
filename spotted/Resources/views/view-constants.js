@@ -40,6 +40,10 @@ module.exports.errorPictureText = "There was an error fetching the pictures. \n\
 module.exports.pictureButtonHeight = 80;
 module.exports.pictureButtonWidth = module.exports.pictureButtonHeight;
 module.exports.pictureButtonBottom = 20;
+module.exports.pictureButtonBGHeight = module.exports.pictureButtonHeight + 10;
+module.exports.pictureButtonBGWidth = module.exports.pictureButtonBGHeight;
+module.exports.switchCameraButtonHeight = 35;
+module.exports.cameraSpaceFromSide = 10;
 
 // Paint View Variables
 module.exports.paintBottomBuffer = 10;

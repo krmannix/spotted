@@ -21,6 +21,8 @@ function Events(top_banner, pic_list, pic_data, camera, location, paint, camera_
 	this.paint_loading = this.paint.getLoadingView();
 	this.paint_view = this.paint.getPaintView();
 	this.picture_button = this.camera_view.getTakePhotoButton();
+	this.switch_camera_button = this.camera_view.getSwitchCameraButton();
+	this.cancel_camera_button = this.camera_view.getCancelButton();
 
 	// For the reload puller
 	this.pulling = false;
@@ -165,6 +167,10 @@ Events.prototype.takePictureCustom = function() {
 	Ti.Media.takePicture();
 }
 
+Events.prototype.hideCamera = function() {
+	Ti.Media.hideCamera();
+}
+
 /* * * * * * * * * * * * * * * * * * * * *
  * 
  *  All event listeners should go in here
@@ -201,6 +207,14 @@ Events.prototype.addEventListeners = function() {
 
 	this.picture_button.addEventListener('click', function() {
 		self.takePictureCustom();
+	});
+
+	this.switch_camera_button.addEventListener('click', function() {
+		self.switchCamera();
+	});
+
+	this.cancel_camera_button.addEventListener('click', function() {
+		self.hideCamera();
 	});
 
 	this.allColorHandlers();
