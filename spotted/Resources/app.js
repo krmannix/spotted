@@ -14,6 +14,7 @@ var Loc = require('controllers/location');
 var NoGeo = require('views/no-geo-view');
 var ErrorPic = require('views/error-getting-pics-view')
 var Camera = require('controllers/camera');
+var CameraView = require('views/camera-view');
 var Paint = require('views/paint-view');
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -27,6 +28,7 @@ var Paint = require('views/paint-view');
  var no_geo = new NoGeo();
  var err_pic = new ErrorPic();
  var paint = new Paint();
+ var camera_view = new CameraView();
 
  var pic_list_actInd = pic_list.getListActivityInd();
 
@@ -37,9 +39,9 @@ var Paint = require('views/paint-view');
  * * * * * * * * * * * * * * * * * * * * */
 
  var location = new Loc(pic_list, no_geo);
- var camera = new Camera(location, paint);
+ var camera = new Camera(camera_view, paint);
  var pic_data = new PicData(pic_list, location, pic_list_actInd, err_pic);
- var events = new Events(top_banner, pic_list, pic_data, camera, location, paint);
+ var events = new Events(top_banner, pic_list, pic_data, camera, location, paint, camera_view);
 
  /* * * * * * * * * * * * * * * * * * * * *
  * 

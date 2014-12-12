@@ -1,10 +1,11 @@
 var animations = require('../views/animations');
 
-function Events(top_banner, pic_list, pic_data, camera, location, paint) {
+function Events(top_banner, pic_list, pic_data, camera, location, paint, camera_view) {
 	// Get views
 	this.top_banner = top_banner;
 	this.pic_list = pic_list;
 	this.pic_data = pic_data;
+	this.camera_view = camera_view;
 	this.paint = paint;
 	this.camera = camera;
 
@@ -19,7 +20,7 @@ function Events(top_banner, pic_list, pic_data, camera, location, paint) {
 	this.text_input_box = this.paint.getTextInputBox();
 	this.paint_loading = this.paint.getLoadingView();
 	this.paint_view = this.paint.getPaintView();
-	this.picture_button = this.camera.getPictureButton();
+	this.picture_button = this.camera_view.getTakePhotoButton();
 
 	// For the reload puller
 	this.pulling = false;
@@ -152,12 +153,12 @@ Events.prototype.textStart = function() {
 	}
 }
 
-Events.prototype.openUpPaintView = function() {
-	
-}
-
-Events.prototype.openUpListView = function() {
-	
+Events.prototype.switchCamera = function() {
+	if (Ti.Media.camera == Ti.Media.CAMERA_FRONT) {
+		Ti.Media.switchCamera(Ti.Media.CAMERA_REAR);
+	} else {
+		Ti.Media.switchCamera(Ti.Media.CAMERA_FRONT);
+	}
 }
 
 Events.prototype.takePictureCustom = function() {
