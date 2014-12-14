@@ -117,7 +117,7 @@ PaintView.prototype.createColorButtons = function(colors) {
 	var bs = [];
 	for (var i = 0; i < colors.length; i++) {
 		bs.push(this.createColorButton(colors[i], constants.paintColorButtonInitialLeft + 
-											 (constants.paintColorButtonSize + constants.paintColorButtonBuffer)*i))
+											 constants.paintColorButtonLeftMultiplier*i))
 	}
 	return bs;
 }

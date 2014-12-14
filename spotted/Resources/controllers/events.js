@@ -28,6 +28,9 @@ function Events(top_banner, pic_list, pic_data, camera, location, paint, camera_
 	this.switch_camera_button = this.camera_view.getSwitchCameraButton();
 	this.cancel_camera_button = this.camera_view.getCancelButton();
 
+	// Animations
+	this.close_paint_view_animation = animations.closePaintView();
+
 	// For the reload puller
 	this.pulling = false;
 	this.reloading = false;
@@ -150,8 +153,8 @@ Events.prototype.sendPhoto = function() {
 }
 
 Events.prototype.closePaintView = function() {
-	this.paint_view.setVisible(false);
 	this.paint_loading.hide();
+	this.paint_view.animate(this.close_paint_view_animation);
 }
 
 Events.prototype.textStart = function() {
@@ -191,6 +194,11 @@ Events.prototype.setEraseMode = function() {
 
 Events.prototype.refreshImage = function() {
 	this.paint.refreshImage();
+}
+
+Events.prototype.completeClosePaintViewAnimation = function() {
+	this.paint_view.setVisible(false);
+	this.paint_view.setTop(0);
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -249,6 +257,10 @@ Events.prototype.addEventListeners = function() {
 
 	this.refresh_paint_button.addEventListener('click', function() {
 		self.refreshImage();
+	});
+
+	this.close_paint_view_animation.addEventListener('complete', function(e) {
+		self.completeClosePaintViewAnimation();
 	});
 
 	this.allColorHandlers();

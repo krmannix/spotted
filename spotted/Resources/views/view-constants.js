@@ -12,9 +12,11 @@ module.exports.bannerHeight = 40;
 module.exports.bannerHeightWithBuffer = module.exports.bannerHeight + module.exports.bannerTopBuffer;
 module.exports.bannerButtonHeight = module.exports.bannerHeight*0.8;
 module.exports.bannerLogoHeight = module.exports.bannerHeight*0.95;
+module.exports.bannerLogoWidth = module.exports.bannerLogoHeight;
 module.exports.bannerButtonTop = module.exports.bannerTopBuffer + (module.exports.bannerHeight - module.exports.bannerButtonHeight)/2;
 module.exports.bannerButtonSpaceFromSide = 10;
-module.exports.bannerBorderWidth = 4;	
+module.exports.bannerBorderWidth = 4;
+module.exports.bannerLeft = -1*(module.exports.deviceWidth - module.exports.bannerLogoWidth - module.exports.bannerButtonSpaceFromSide);	
 
 // Constants for the table
 module.exports.tableTop = module.exports.bannerHeightWithBuffer; //+ module.exports.bannerBorderWidth;
@@ -54,6 +56,12 @@ module.exports.paintBottomBuffer = 10;
 module.exports.paintColorButtonSize = 35; //20
 module.exports.paintColorButtonBuffer = 5;
 module.exports.paintColorButtonInitialLeft = 10;
+
+module.exports.paintColorButtonLeftMultiplier = module.exports.paintColorButtonSize +
+												((module.exports.deviceWidth 
+												  - module.exports.paintColorButtonInitialLeft
+												  - module.exports.paintColorButtonSize*module.exports.paintColors.length)/
+												module.exports.paintColors.length-1);
 
 module.exports.submitButtonWidth = 70;
 module.exports.submitButtonHeight = module.exports.switchCameraButtonHeight;
