@@ -46,20 +46,28 @@ module.exports.switchCameraButtonHeight = 35;
 module.exports.cameraSpaceFromSide = 10;
 
 // Paint View Variables
+module.exports.paintColors = ['#FF0000', '#FFA500', '#FFFF00',
+							  '#00FF00', '#0000FF', '#800080', 
+							  '#FFFFFF'];
 module.exports.paintBottomBuffer = 10;
 
-module.exports.paintColorButtonSize = 20;
+module.exports.paintColorButtonSize = 35; //20
 module.exports.paintColorButtonBuffer = 5;
 module.exports.paintColorButtonInitialLeft = 10;
 
 module.exports.submitButtonWidth = 70;
-module.exports.submitButtonHeight = module.exports.paintColorButtonSize + 10;
+module.exports.submitButtonHeight = module.exports.switchCameraButtonHeight;
 module.exports.submitButtonInitialRight = module.exports.paintColorButtonInitialLeft;
 module.exports.submitButtonBorderColor = '#333';
 module.exports.submitButtonBorderWidth = 2;
 module.exports.submitButtonBackgroundColor = '#666';
 module.exports.submitButtonTextColor = '#DDD';
 module.exports.submitButtonText = 'Post';
+module.exports.submitButtonBottom = module.exports.submitButtonHeight + module.exports.paintBottomBuffer + 10;
+
+module.exports.eraseBackgroundBuffer = 7;
+
+module.exports.paintCancelButtonBottom = module.exports.submitButtonBottom;
 
 module.exports.textInputHeight = 40;
 module.exports.textInputOpacity = 0.5;

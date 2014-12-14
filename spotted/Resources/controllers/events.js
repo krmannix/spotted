@@ -20,6 +20,10 @@ function Events(top_banner, pic_list, pic_data, camera, location, paint, camera_
 	this.text_input_box = this.paint.getTextInputBox();
 	this.paint_loading = this.paint.getLoadingView();
 	this.paint_view = this.paint.getPaintView();
+	this.cancel_paint_button = this.paint.getCancelButton();
+	this.erase_paint_button = this.paint.getEraseButton();
+	this.erase_paint_background = this.paint.getEraseBackground();
+	this.refresh_paint_button = this.paint.getRefreshButton();
 	this.picture_button = this.camera_view.getTakePhotoButton();
 	this.switch_camera_button = this.camera_view.getSwitchCameraButton();
 	this.cancel_camera_button = this.camera_view.getCancelButton();
@@ -100,6 +104,9 @@ Events.prototype.allColorHandlers = function() {
 	var self = this;
 	for (var i = 0; i < cbs.length; i++) {
 		cbs[i].addEventListener('click', function(e) {
+			// Set canvas to non-erase mode
+			self.paint.getCanvas().eraseMode = false;
+			self.erase_paint_background.setVisible(false);
 			self.paint.changeStrokeColor(e.source.backgroundColor);
 		});
 	}
@@ -139,7 +146,10 @@ Events.prototype.sendPhoto = function() {
 	this.paint_loading.show();
 	var img = this.paint.getCanvas().toImage();
 	this.location.getLocation(img, this.photoSendHttpRequest);
-	// Now, cancel out of all the views
+	this.closePaintView();
+}
+
+Events.prototype.closePaintView = function() {
 	this.paint_view.setVisible(false);
 	this.paint_loading.hide();
 }
@@ -169,6 +179,18 @@ Events.prototype.takePictureCustom = function() {
 
 Events.prototype.hideCamera = function() {
 	Ti.Media.hideCamera();
+}
+
+Events.prototype.setEraseMode = function() {
+	this.paint.getCanvas().eraseMode = !this.paint.getCanvas().eraseMode;
+	if (this.paint.getCanvas().eraseMode) 
+		this.erase_paint_background.setVisible(true);
+	else 
+		this.erase_paint_background.setVisible(false);
+}
+
+Events.prototype.refreshImage = function() {
+	this.paint.refreshImage();
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -215,6 +237,18 @@ Events.prototype.addEventListeners = function() {
 
 	this.cancel_camera_button.addEventListener('click', function() {
 		self.hideCamera();
+	});
+
+	this.cancel_paint_button.addEventListener('click', function() {
+		self.closePaintView();
+	});
+
+	this.erase_paint_button.addEventListener('click', function() {
+		self.setEraseMode();
+	});
+
+	this.refresh_paint_button.addEventListener('click', function() {
+		self.refreshImage();
 	});
 
 	this.allColorHandlers();

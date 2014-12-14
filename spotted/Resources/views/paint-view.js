@@ -2,14 +2,18 @@ var Paint = require('ti.paint');
 var constants = require('./view-constants');
 
 function PaintView() {
-	this.colorButtons = this.createColorButtons(['#FF0000', '#FFA500', '#FFFF00',
-												 '#00FF00', '#0000FF', '#800080']);
+	this.colorButtons = this.createColorButtons(constants.paintColors);
 	this.submitButton = this.createSubmitButton();
 	this.textStartButton = this.createTextStartButton();
 	this.textInputBox = this.createTextInputBox();
 	this.loadingView = this.createLoadingView();
+	this.cancelButton = this.createCancelButton();
+	this.eraseButton = this.createEraseButton();
+	this.eraseBackground = this.createEraseBackground();
+	this.refreshButton = this.createRefreshButton();
 	this.canvas = this.createCanvas();
 	this.paintView = this.createPaintView();
+	this.org_pic;
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -34,6 +38,10 @@ PaintView.prototype.createPaintView = function() {
 	});
 	pv.add(this.canvas);
 	pv.add(this.submitButton);
+	pv.add(this.cancelButton);
+	pv.add(this.eraseBackground);
+	pv.add(this.eraseButton);
+	pv.add(this.refreshButton);
 	// pv.add(this.textStartButton);
 	// pv.add(this.textInputBox);
 	for (var i = 0; i < this.colorButtons.length; i++) {
@@ -42,6 +50,47 @@ PaintView.prototype.createPaintView = function() {
 	pv.add(this.loadingView);
 	// Add text button
 	return pv;
+}
+
+PaintView.prototype.createCancelButton = function() {
+	var cb = Ti.UI.createImageView({
+		height: constants.switchCameraButtonHeight,
+		left: constants.cameraSpaceFromSide,
+		bottom: constants.paintCancelButtonBottom,
+		image: 'images/cancel.png'
+	});
+	return cb;
+}
+
+PaintView.prototype.createEraseButton = function() {
+	var eb = Ti.UI.createImageView({
+		height: constants.switchCameraButtonHeight,
+		bottom: constants.paintCancelButtonBottom,
+		image: 'images/erase.png',
+		visible: false
+	});
+	return eb;
+}
+
+PaintView.prototype.createEraseBackground = function() {
+	var ebg = Ti.UI.createView({
+		height: constants.switchCameraButtonHeight + constants.eraseBackgroundBuffer,
+		width: constants.switchCameraButtonHeight,
+		bottom: constants.paintCancelButtonBottom - (constants.eraseBackgroundBuffer/2),
+		borderRadius: constants.switchCameraButtonHeight/2,
+		backgroundColor: 'rgba(255, 251, 204, .4)',
+		visible: false
+	});
+	return ebg;
+}
+
+PaintView.prototype.createRefreshButton = function() {
+	var rb = Ti.UI.createImageView({
+		height: constants.switchCameraButtonHeight,
+		bottom: constants.paintCancelButtonBottom,
+		image: 'images/refresh.png'
+	});
+	return rb;
 }
 
 PaintView.prototype.createColorButton = function(color, x_distance) {
@@ -79,7 +128,7 @@ PaintView.prototype.createSubmitButton = function() {
 		height: constants.submitButtonHeight,
 		borderRadius: constants.paintColorButtonSize/4,
 		width: constants.submitButtonWidth,
-		bottom: constants.paintBottomBuffer,
+		bottom: constants.submitButtonBottom,
 		right: constants.submitButtonInitialRight,
 		borderWidth: constants.submitButtonBorderWidth,
 		borderColor: constants.submitButtonBorderColor
@@ -147,6 +196,7 @@ PaintView.prototype.createLoadingView = function() {
 }
 
 PaintView.prototype.setPaintImage = function(pic) {
+	this.org_pic = pic;
 	var i = Ti.UI.createImageView({
 		image: pic,
 		height: 'auto',
@@ -155,6 +205,10 @@ PaintView.prototype.setPaintImage = function(pic) {
 	//Ti.API.info(i.toImage().height + " " + i.size.height + " " + (i.size.height / (Titanium.Platform.displayCaps.dpi / 160)));
 	this.canvas.height = constants.deviceHeight*0.75;
 	this.canvas.setImage(pic);
+}
+
+PaintView.prototype.refreshImage = function() {
+	this.canvas.setImage(this.org_pic);
 }
 
 PaintView.prototype.showPaintView = function() {
@@ -194,6 +248,22 @@ PaintView.prototype.getTextInputBox = function() {
 
 PaintView.prototype.getLoadingView = function() {
 	return this.loadingView;
+}
+
+PaintView.prototype.getCancelButton = function() {
+	return this.cancelButton;
+}
+
+PaintView.prototype.getEraseButton = function() {
+	return this.eraseButton;
+}
+
+PaintView.prototype.getEraseBackground = function() {
+	return this.eraseBackground;
+}
+
+PaintView.prototype.getRefreshButton = function() {
+	return this.refreshButton;
 }
 
 
