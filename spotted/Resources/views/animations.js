@@ -40,5 +40,6 @@ var closeTopBar = function() {
 
 module.exports.openInputTextBox = openInputTextBox;
 module.exports.closeInputTextBox = closeInputTextBox;
+module.exports.closePaintView = closePaintView;
 module.exports.closeTopBar = closeTopBar;
 module.exports.openTopBar = openTopBar;

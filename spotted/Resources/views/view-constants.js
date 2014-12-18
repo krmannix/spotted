@@ -9,14 +9,15 @@ module.exports.deviceWidth = Titanium.Platform.displayCaps.platformWidth;
 // Top banner
 module.exports.bannerTopBuffer = 15;
 module.exports.bannerHeight = 40;
-module.exports.bannerHeightWithBuffer = module.exports.bannerHeight + module.exports.bannerTopBuffer;
-module.exports.bannerButtonHeight = module.exports.bannerHeight*0.8;
+module.exports.bannerButtonSpaceFromSide = 10;
 module.exports.bannerLogoHeight = module.exports.bannerHeight*0.95;
 module.exports.bannerLogoWidth = module.exports.bannerLogoHeight;
+module.exports.bannerLeft = -1*(module.exports.deviceWidth - module.exports.bannerLogoWidth - module.exports.bannerButtonSpaceFromSide);
+module.exports.bannerHeightWithBuffer = module.exports.bannerHeight + module.exports.bannerTopBuffer;
+module.exports.bannerButtonHeight = module.exports.bannerHeight*0.8;
 module.exports.bannerButtonTop = module.exports.bannerTopBuffer + (module.exports.bannerHeight - module.exports.bannerButtonHeight)/2;
-module.exports.bannerButtonSpaceFromSide = 10;
+
 module.exports.bannerBorderWidth = 4;
-module.exports.bannerLeft = -1*(module.exports.deviceWidth - module.exports.bannerLogoWidth - module.exports.bannerButtonSpaceFromSide);	
 
 // Constants for the table
 module.exports.tableTop = module.exports.bannerHeightWithBuffer; //+ module.exports.bannerBorderWidth;
@@ -81,3 +82,14 @@ module.exports.textInputHeight = 40;
 module.exports.textInputOpacity = 0.5;
 module.exports.textInputBottomOpen = 15;
 module.exports.textInputBottomClosed = -1*(module.exports.textInputBottomOpen+module.exports.textInputHeight);
+
+module.exports.canvasHeightMultiplier = 0.75;
+
+// Tag View Variables
+module.exports.tagViewHeight = module.exports.deviceHeight - 
+								(module.exports.submitButtonHeight + 
+								 module.exports.submitButtonBottom + 
+								 module.exports.deviceHeight*module.exports.canvasHeightMultiplier);
+module.exports.tagViewTop = module.exports.deviceHeight*module.exports.canvasHeightMultiplier; 
+module.exports.tagArrowHeight = module.exports.tagViewHeight - 5;
+

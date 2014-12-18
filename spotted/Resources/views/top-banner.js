@@ -3,6 +3,7 @@ var customFont = 'Dosis';
 
 function TopBanner() {
 	this.photo_button = this.createPhotoButton();
+	this.logo = this.createLogo();
 	this.top_banner = this.createTopBanner();
 }
 
@@ -12,15 +13,26 @@ TopBanner.prototype.createPhotoButton = function() {
 		top: constants.bannerButtonTop,
 		height: constants.bannerButtonHeight,
 		width: constants.bannerButtonHeight,
-		right: constants.bannerButtonSpaceFromSide
+		right: -1*constants.bannerLeft + constants.bannerButtonSpaceFromSide
+	});
+}
+
+TopBanner.prototype.createLogo = function() {
+	return Ti.UI.createImageView({
+		image: 'images/temp_logo.png',
+		top: constants.bannerButtonTop,
+		height: constants.bannerButtonHeight,
+		width: constants.bannerButtonHeight,
+		left: -1*constants.bannerLeft + constants.bannerButtonSpaceFromSide
 	});
 }
 
 TopBanner.prototype.createTopBanner = function() {
 	var banner = Ti.UI.createView({
 		height: constants.bannerHeightWithBuffer,
-		width: constants.deviceWidth,
+		width: constants.deviceWidth + -2*constants.bannerLeft, // This is so the title text is still aslign
 		backgroundColor: constants.primaryColor,
+		left: constants.bannerLeft,
 		top: 0
 	});
 	var border = Ti.UI.createView({
@@ -37,16 +49,10 @@ TopBanner.prototype.createTopBanner = function() {
 		textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 		font: {fontFamily: customFont, fontSize: 26}
 	});
-	var logo = Ti.UI.createImageView({
-		image: 'images/temp_logo.png',
-		top: constants.bannerButtonTop,
-		height: constants.bannerButtonHeight,
-		width: constants.bannerButtonHeight,
-		left: constants.bannerButtonSpaceFromSide
-	});
+	
 	banner.add(this.photo_button);
 	banner.add(title);
-	banner.add(logo);
+	banner.add(this.logo);
 	//banner.add(border);
 	return banner;
 }
@@ -61,6 +67,10 @@ TopBanner.prototype.getPhotoButton = function() {
 
 TopBanner.prototype.getTopBanner = function() {
 	return this.top_banner;
+}
+
+TopBanner.prototype.getLogo = function() {
+	return this.logo;
 }
 
 

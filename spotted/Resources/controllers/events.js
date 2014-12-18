@@ -1,6 +1,6 @@
 var animations = require('../views/animations');
 
-function Events(top_banner, pic_list, pic_data, camera, location, paint, camera_view) {
+function Events(top_banner, pic_list, pic_data, camera, location, paint, camera_view, tags) {
 	// Get views
 	this.top_banner = top_banner;
 	this.pic_list = pic_list;
@@ -8,9 +8,12 @@ function Events(top_banner, pic_list, pic_data, camera, location, paint, camera_
 	this.camera_view = camera_view;
 	this.paint = paint;
 	this.camera = camera;
+	this.tags = tags;
 
 	// Get components in views
 	this.location = location;
+	this.banner = this.top_banner.getTopBanner();
+	this.banner_logo = this.top_banner.getLogo();
 	this.photo_button = this.top_banner.getPhotoButton();
 	this.options_button = this.top_banner.getOptionsButton();
 	this.cameraControl = camera;
@@ -27,9 +30,14 @@ function Events(top_banner, pic_list, pic_data, camera, location, paint, camera_
 	this.picture_button = this.camera_view.getTakePhotoButton();
 	this.switch_camera_button = this.camera_view.getSwitchCameraButton();
 	this.cancel_camera_button = this.camera_view.getCancelButton();
+	this.tag_left_arrow = this.tags.getLeftArrow();
+	this.tag_right_arrow = this.tags.getRightArrow();
+	this.tag_labels = this.tags.getTagLabels();
 
 	// Animations
 	this.close_paint_view_animation = animations.closePaintView();
+	this.open_banner = animations.openTopBar();
+	this.close_banner = animations.closeTopBar();
 
 	// For the reload puller
 	this.pulling = false;
@@ -42,6 +50,8 @@ function Events(top_banner, pic_list, pic_data, camera, location, paint, camera_
 
 	// Boolean values
 	this.textInputBoxOpen = false;
+	this.topBarOpen = false;
+	this.tagIndex = 0;
 
 	this.addEventListeners();
 
@@ -201,6 +211,33 @@ Events.prototype.completeClosePaintViewAnimation = function() {
 	this.paint_view.setTop(0);
 }
 
+Events.prototype.toggleTopBar = function() {
+	if (this.topBarOpen) {
+		this.banner.animate(this.close_banner);
+		this.topBarOpen = !this.topBarOpen;
+	} else {
+		this.banner.animate(this.open_banner);
+		this.topBarOpen = !this.topBarOpen;
+	}
+}
+
+Events.prototype.changeTag = function(left) {
+	var oldTag = this.tagIndex;
+	if (left) {
+		if (this.tagIndex == 0)
+			this.tagIndex = this.tag_labels.length - 1;
+		else
+			this.tagIndex--;
+	} else {
+		if (this.tagIndex == this.tag_labels.length - 1)
+			this.tagIndex = 0;
+		else
+			this.tagIndex++;
+	}
+	this.tag_labels[oldTag].setVisible(false);
+	this.tag_labels[this.tagIndex].setVisible(true);
+}
+
 /* * * * * * * * * * * * * * * * * * * * *
  * 
  *  All event listeners should go in here
@@ -261,6 +298,18 @@ Events.prototype.addEventListeners = function() {
 
 	this.close_paint_view_animation.addEventListener('complete', function(e) {
 		self.completeClosePaintViewAnimation();
+	});
+
+	this.banner_logo.addEventListener('click', function() {
+		self.toggleTopBar();
+	});
+
+	this.tag_left_arrow.addEventListener('click', function() {
+		self.changeTag(true);
+	});
+
+	this.tag_right_arrow.addEventListener('click', function() {
+		self.changeTag(false);
 	});
 
 	this.allColorHandlers();

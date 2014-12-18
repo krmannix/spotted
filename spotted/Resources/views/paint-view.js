@@ -1,7 +1,8 @@
 var Paint = require('ti.paint');
 var constants = require('./view-constants');
 
-function PaintView() {
+function PaintView(tag_view) {
+	this.tag_view = tag_view;
 	this.colorButtons = this.createColorButtons(constants.paintColors);
 	this.submitButton = this.createSubmitButton();
 	this.textStartButton = this.createTextStartButton();
@@ -47,6 +48,7 @@ PaintView.prototype.createPaintView = function() {
 	for (var i = 0; i < this.colorButtons.length; i++) {
 		pv.add(this.colorButtons[i]);
 	}
+	pv.add(this.tag_view);
 	pv.add(this.loadingView);
 	// Add text button
 	return pv;
@@ -203,7 +205,7 @@ PaintView.prototype.setPaintImage = function(pic) {
 		width: 'auto'
 	});
 	//Ti.API.info(i.toImage().height + " " + i.size.height + " " + (i.size.height / (Titanium.Platform.displayCaps.dpi / 160)));
-	this.canvas.height = constants.deviceHeight*0.75;
+	this.canvas.height = constants.deviceHeight*constants.canvasHeightMultiplier;
 	this.canvas.setImage(pic);
 }
 
